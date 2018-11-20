@@ -2,10 +2,12 @@ package com.bc.pushpika.bc_store;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
@@ -79,15 +81,20 @@ public class LoginActivity extends AppCompatActivity {
                                 vibrator.vibrate(100);
                             } else {
 
-                                //getting user name
-                                String id = obj.getString("id");
+                                Log.d("response id",obj.getString("id"));
+                                Log.d("response email",obj.getString("emailAddress"));
                               //  Toast.makeText(getApplicationContext(),id, Toast.LENGTH_SHORT).show();
 
                                 //storing the user in shared preferences
                   ///////            //  SharedPref.getInstance(getApplicationContext()).storeUserName(Username);
                                 //starting the profile activity
+                                SharedPreferences.Editor editor = getSharedPreferences("MY_PREF", MODE_PRIVATE).edit();
+                                editor.putString("userID", obj.getString("id"));
+                                editor.putString("emailAddress", obj.getString("emailAddress"));
+                                editor.apply();
+
                                 finish();
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                startActivity(new Intent(getApplicationContext(), UserDataActivity.class));
 
                             }
 
