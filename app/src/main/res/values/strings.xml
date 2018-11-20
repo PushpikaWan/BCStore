@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">BCInfo</string>
+    <string name="login">Log in</string>
+    <string name="desc">description</string>
+    <string name="email_here">email here</string>
+    <string name="password_here">password here</string>
+    <string name="password">password</string>
+    <string name="email_address">Email address</string>
+    <string name="forget_your_password">Forget your Password?</string>
+    <string name="sign_up">Sign up</string>
+    <string name="verify_password">verify password</string>
+</resources>
