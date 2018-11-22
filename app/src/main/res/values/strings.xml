@@ -10,4 +10,6 @@
     <string name="sign_up">Sign up</string>
     <string name="verify_password">verify password</string>
     <string name="submit">Submit</string>
+    <string name="user_data">User Data</string>
+    <string name="search_data">Search Data</string>
 </resources>

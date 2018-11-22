@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.apply();
 
                                 finish();
-                                startActivity(new Intent(getApplicationContext(), UserDataActivity.class));
+                                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
 
                             }
 
