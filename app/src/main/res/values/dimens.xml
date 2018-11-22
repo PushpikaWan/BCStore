@@ -27,4 +27,7 @@
 
     <dimen name="start_page_image_size">144dp</dimen>
 
+    <dimen name="default_card_height">50dp</dimen>
+    <dimen name="default_vertical_padding">10dp</dimen>
+
 </resources>

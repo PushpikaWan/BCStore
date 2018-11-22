@@ -6,11 +6,11 @@ import com.google.firebase.database.IgnoreExtraProperties;
 public class OccupationalDetail {
 
 
-    private String companyName;
-    private String companyAddress;
-    private String jobTitle;
-    private String phone;
-    private String startDate;
+    private String companyName = "";
+    private String companyAddress = "";
+    private String jobTitle = "";
+    private String phone = "";
+    private String startDate = "";
 
     public OccupationalDetail() {
     }
@@ -63,4 +63,13 @@ public class OccupationalDetail {
         this.startDate = startDate;
     }
 
+    public String getAllOccupationalDataText(){
+
+        return " <B> Occupational Data </B>  \n \n"+
+                "<B> Company Name </B> - "+ this.companyName +"\n"+
+                "<B> Company Address </B> - "+ this.companyAddress +"\n"+
+                "<B> Job Title </B> - "+ this.jobTitle +"\n"+
+                "<B> Start Date </B> - "+ this.startDate +"\n"+
+                "<B> Phone </B> - "+ this.phone +"\n";
+    }
 }

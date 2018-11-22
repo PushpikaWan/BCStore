@@ -5,13 +5,13 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class PersonalDetail {
 
-    private String address;
-    private String dOB;
-    private String emailAddress;
-    private String home;
-    private String married;
-    private String mobile;
-    private String name;
+    private String address = "";
+    private String dOB = "";
+    private String emailAddress = "";
+    private String home = "";
+    private String married = "";
+    private String mobile = "";
+    private String name = "";
 
     public PersonalDetail() {
 
@@ -81,6 +81,18 @@ public class PersonalDetail {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAllPersonalDataText(){
+
+        return " <B> Occupational Data </B>  \n \n"+
+                "<B> Name </B> - "+ this.name +"\n"+
+                "<B> Address </B> - "+ this.address +"\n"+
+                "<B> DOB </B> - "+ this.dOB +"\n"+
+                "<B> EmailAddress </B> - "+ this.emailAddress +"\n"+
+                "<B> Mobile </B> - "+ this.mobile +"\n"+
+                "<B> Home </B> - "+ this.home +"\n"+
+                "<B> Married </B> - "+ this.married +"\n";
     }
 
 }

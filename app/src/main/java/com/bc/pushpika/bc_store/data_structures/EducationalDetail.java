@@ -5,10 +5,10 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class EducationalDetail {
 
-    private String endDate;
-    private String higherStudies;
-    private String startDate;
-    private String stream;
+    private String endDate = "";
+    private String higherStudies = "";
+    private String startDate = "";
+    private String stream = "";
 
 
     // Default constructor required for calls to
@@ -54,6 +54,15 @@ public class EducationalDetail {
 
     public void setStream(String stream) {
         this.stream = stream;
+    }
+
+    public String getAllEducationalDataText(){
+
+        return " <B> Educational Data </B>  \n \n"+
+                "<B> A/L Stream </B> - "+ this.stream +"\n"+
+                "<B> Start Date </B> - "+ this.startDate +"\n"+
+                "<B> End Date </B> - "+ this.endDate +"\n"+
+                "<B> Higher studies </B> - "+ this.higherStudies +"\n";
     }
 
 }

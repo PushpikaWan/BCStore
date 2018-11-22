@@ -1,25 +1,19 @@
 package com.bc.pushpika.bc_store;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.bc.pushpika.bc_store.data_structures.EducationalDetail;
-import com.bc.pushpika.bc_store.data_structures.FullDetail;
 import com.bc.pushpika.bc_store.data_structures.OccupationalDetail;
 import com.bc.pushpika.bc_store.data_structures.PersonalDetail;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Calendar;
 
 public class UserDataActivity extends AppCompatActivity {
 

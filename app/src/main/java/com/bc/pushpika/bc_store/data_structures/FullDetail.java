@@ -1,14 +1,30 @@
 package com.bc.pushpika.bc_store.data_structures;
 
+
 public class FullDetail {
 
     private PersonalDetail personalDetail;
     private OccupationalDetail occupationalDetail;
     private EducationalDetail educationalDetail;
     private String isUserVerified;
+    private String userID;
+
+
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
 
     public FullDetail() {
-
+       personalDetail = new PersonalDetail();
+       occupationalDetail = new OccupationalDetail();
+       educationalDetail = new EducationalDetail();
+       isUserVerified = "false";
+       userID = "0";
     }
 
     public PersonalDetail getPersonalDetail() {

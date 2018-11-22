@@ -7,13 +7,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bc.pushpika.bc_store.data_structures.FullDetail;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ReyclerViewHolder> {
     private LayoutInflater layoutInflater;
     private Animation animationUp, animationDown;
+    private List<FullDetail> itemList;
     private Context context;
     private final int COUNTDOWN_RUNNING_TIME = 500;
 
@@ -22,24 +29,34 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Reycle
         this.animationDown = animationDown;
         this.animationUp = animationUp;
         this.context = context;
+        itemList = new ArrayList();
+
+        getDataFromDB();
+    }
+
+    private void getDataFromDB() {
+        itemList.add(new FullDetail());
+        itemList.add(new FullDetail());
+        itemList.add(new FullDetail());
+        itemList.add(new FullDetail());
     }
 
     @Override
     public ReyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View item = layoutInflater.inflate(R.layout.item_recycler_view, parent, false);
-
         return new ReyclerViewHolder(item);
     }
 
     @Override
     public void onBindViewHolder(final ReyclerViewHolder holder, int position) {
-        if (position % 3 == 0) {
-            holder.image.setImageResource(R.drawable.ic_launcher_background);
-        } else if (position % 3 == 1) {
-            holder.image.setImageResource(R.drawable.ic_launcher_background);
-        } else {
-            holder.image.setImageResource(R.drawable.ic_launcher_background);
-        }
+
+        //set relevant holder data
+        if(position >= itemList.size()) return;
+
+        holder.title.setText(itemList.get(position).getPersonalDetail().getName());
+        holder.id.setText(itemList.get(position).getUserID());
+        holder.contentLayout.setText(getContentText(itemList.get(position)));
+
 
         holder.showMore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,35 +76,43 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Reycle
                     };
                     countDownTimerStatic.start();
 
-                    holder.showMore.setText("show");
-                    holder.showMore.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_password_white_24dp, 0);
+                    holder.showMore.setImageResource(R.drawable.arrow_down);
                 } else {
                     holder.contentLayout.setVisibility(View.VISIBLE);
                     holder.contentLayout.startAnimation(animationDown);
 
-                    holder.showMore.setText("hide");
-                    holder.showMore.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_account_box_white_24dp, 0);
+                    holder.showMore.setImageResource(R.drawable.ic_account_box_white_24dp);
                 }
             }
         });
     }
 
+    private String getContentText(FullDetail fullDetail) {
+     return fullDetail.getPersonalDetail().getAllPersonalDataText()+
+     fullDetail.getEducationalDetail().getAllEducationalDataText()+
+     fullDetail.getOccupationalDetail().getAllOccupationalDataText();
+    }
+
     @Override
     public int getItemCount() {
-        return 10;
+        return itemList.size();
     }
 
     class ReyclerViewHolder extends RecyclerView.ViewHolder {
-        private ImageView image;
-        private TextView showMore;
+  //      private ImageView image;
+        private TextView id; //hidden field to get id of displayed user data
+        private TextView title;
+        private ImageButton showMore;
         private TextView contentLayout;
 
         private ReyclerViewHolder(final View v) {
             super(v);
 
-            image = (ImageView) v.findViewById(R.id.image);
-            contentLayout = (TextView) v.findViewById(R.id.content);
-            showMore = (TextView) v.findViewById(R.id.show_more);
+    //        image = (ImageView) v.findViewById(R.id.image);
+            id = v.findViewById(R.id.id_hidden);
+            title = v.findViewById(R.id.title);
+            contentLayout = v.findViewById(R.id.content);
+            showMore = v.findViewById(R.id.show_more);
         }
     }
 }
