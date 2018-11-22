@@ -85,11 +85,16 @@ public class UserDataActivity extends AppCompatActivity {
         ref.child("educationalDetails").setValue(educationalDetail);
         ref.child("occupationalDetails").setValue(occupationalDetail);
 
+        //set this only for first time prevent from updates
+        if(!prefs.getBoolean("isDataSubmitted",false)){
+            ref.child("isUserVerified").setValue(false);
+        }
+
         editor.putBoolean("isDataSubmitted",true);
         editor.apply();
 
-        startActivity(new Intent(getApplicationContext(),MainActivity.class));
         finish();
+        startActivity(new Intent(getApplicationContext(),MainActivity.class));
 
     }
 

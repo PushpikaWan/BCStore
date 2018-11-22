@@ -101,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
         DatabaseReference myRef = database.getReference("UserStatus");
 
         DatabaseReference ref = myRef.child(uid).child("isUserVerified");
-        ref.setValue(false);
+        ref.setValue("false");
     }
 
     private boolean validateData() {

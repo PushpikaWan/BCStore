@@ -26,4 +26,5 @@
     <string name="job_title">Job Title</string>
     <string name="company_phone">Company Phone</string>
     <string name="job_start_date">Job Start Date</string>
+    <string name="approve">Approve</string>
 </resources>

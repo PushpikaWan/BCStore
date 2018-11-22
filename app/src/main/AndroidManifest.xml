@@ -22,7 +22,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".UserDataActivity" />
-        <activity android:name=".ListViewActivity"></activity>
+        <activity android:name=".ListViewActivity" />
+        <activity android:name=".PendingListViewActivity"></activity>
     </application>
 
 </manifest>

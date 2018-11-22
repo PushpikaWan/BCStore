@@ -27,6 +27,10 @@ public class LoginActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
 
+    //move these two to shared prefereneces
+    public static String userId = "";
+    public static boolean isAdmin = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,18 +64,24 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser firebaseUser =  firebaseAuth.getCurrentUser();
         if( firebaseUser != null){
             SharedPreferences.Editor editor = getSharedPreferences("MY_PREF", MODE_PRIVATE).edit();
+
             editor.putString("userID", firebaseUser.getUid());
             editor.putString("emailAddress", firebaseUser.getEmail());
+
+            userId = firebaseUser.getUid();
+
             editor.apply();
         }
 
         SharedPreferences prefs = getSharedPreferences("MY_PREF", MODE_PRIVATE);
 
         if(!prefs.getBoolean("isDataSubmitted", false)){
+            finish();
             startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
         }
         else{
-            startActivity(new Intent(getApplicationContext(),ListViewActivity.class));
+            finish();
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
         }
     }
 
