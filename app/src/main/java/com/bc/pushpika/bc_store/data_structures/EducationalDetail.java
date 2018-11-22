@@ -58,11 +58,11 @@ public class EducationalDetail {
 
     public String getAllEducationalDataText(){
 
-        return " <B> Educational Data </B>  \n \n"+
-                "<B> A/L Stream </B> - "+ this.stream +"\n"+
-                "<B> Start Date </B> - "+ this.startDate +"\n"+
-                "<B> End Date </B> - "+ this.endDate +"\n"+
-                "<B> Higher studies </B> - "+ this.higherStudies +"\n";
+        return "<br> <br> <B> Educational Data </B>  <br> <br>"+
+                "<B> A/L Stream </B> - "+ this.stream +"<br>"+
+                "<B> Start Date </B> - "+ this.startDate +"<br>"+
+                "<B> End Date </B> - "+ this.endDate +"<br>"+
+                "<B> Higher studies </B> - "+ this.higherStudies +"<br>";
     }
 
 }

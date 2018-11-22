@@ -65,11 +65,11 @@ public class OccupationalDetail {
 
     public String getAllOccupationalDataText(){
 
-        return " <B> Occupational Data </B>  \n \n"+
-                "<B> Company Name </B> - "+ this.companyName +"\n"+
-                "<B> Company Address </B> - "+ this.companyAddress +"\n"+
-                "<B> Job Title </B> - "+ this.jobTitle +"\n"+
-                "<B> Start Date </B> - "+ this.startDate +"\n"+
-                "<B> Phone </B> - "+ this.phone +"\n";
+        return "<br> <br> <B> Occupational Data </B>  <br> <br>"+
+                "<B> Company Name </B> - "+ this.companyName +"<br>"+
+                "<B> Company Address </B> - "+ this.companyAddress +"<br>"+
+                "<B> Job Title </B> - "+ this.jobTitle +"<br>"+
+                "<B> Start Date </B> - "+ this.startDate +"<br>"+
+                "<B> Phone </B> - "+ this.phone +"<br>";
     }
 }

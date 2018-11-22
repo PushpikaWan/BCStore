@@ -2,7 +2,9 @@ package com.bc.pushpika.bc_store;
 
 import android.content.Context;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +13,16 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bc.pushpika.bc_store.data_structures.EducationalDetail;
 import com.bc.pushpika.bc_store.data_structures.FullDetail;
+import com.bc.pushpika.bc_store.data_structures.OccupationalDetail;
+import com.bc.pushpika.bc_store.data_structures.PersonalDetail;
+import com.google.firebase.FirebaseError;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,20 +36,43 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Reycle
     private final int COUNTDOWN_RUNNING_TIME = 500;
 
     public RecyclerAdapter(Context context, Animation animationUp, Animation animationDown) {
+
+        itemList = new ArrayList();
+        getDataFromDB();
+
         this.layoutInflater = LayoutInflater.from(context);
         this.animationDown = animationDown;
         this.animationUp = animationUp;
         this.context = context;
-        itemList = new ArrayList();
-
-        getDataFromDB();
     }
 
     private void getDataFromDB() {
-        itemList.add(new FullDetail());
-        itemList.add(new FullDetail());
-        itemList.add(new FullDetail());
-        itemList.add(new FullDetail());
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("UserData");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+
+                    PersonalDetail personalDetail = messageSnapshot.child("personalDetails").getValue(PersonalDetail.class);
+                    EducationalDetail educationalDetail = messageSnapshot.child("educationalDetails").getValue(EducationalDetail.class);
+                    OccupationalDetail occupationalDetail = messageSnapshot.child("occupationalDetails").getValue(OccupationalDetail.class);
+
+                    itemList.add(new FullDetail(personalDetail,occupationalDetail,educationalDetail,
+                            "true",dataSnapshot.getKey()));
+
+                }
+
+                RecyclerAdapter.super.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
     }
 
     @Override
@@ -55,7 +89,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Reycle
 
         holder.title.setText(itemList.get(position).getPersonalDetail().getName());
         holder.id.setText(itemList.get(position).getUserID());
-        holder.contentLayout.setText(getContentText(itemList.get(position)));
+        holder.contentLayout.setText(Html.fromHtml(getContentText(itemList.get(position))));
 
 
         holder.showMore.setOnClickListener(new View.OnClickListener() {
@@ -80,8 +114,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Reycle
                 } else {
                     holder.contentLayout.setVisibility(View.VISIBLE);
                     holder.contentLayout.startAnimation(animationDown);
-
-                    holder.showMore.setImageResource(R.drawable.ic_account_box_white_24dp);
+                    holder.showMore.setImageResource(R.drawable.arrow_up_black_24dp);
                 }
             }
         });

@@ -85,14 +85,14 @@ public class PersonalDetail {
 
     public String getAllPersonalDataText(){
 
-        return " <B> Occupational Data </B>  \n \n"+
-                "<B> Name </B> - "+ this.name +"\n"+
-                "<B> Address </B> - "+ this.address +"\n"+
-                "<B> DOB </B> - "+ this.dOB +"\n"+
-                "<B> EmailAddress </B> - "+ this.emailAddress +"\n"+
-                "<B> Mobile </B> - "+ this.mobile +"\n"+
-                "<B> Home </B> - "+ this.home +"\n"+
-                "<B> Married </B> - "+ this.married +"\n";
+        return " <B> Occupational Data </B>  <br> <br>"+
+                "<B> Name </B> - "+ this.name +"<br>"+
+                "<B> Address </B> - "+ this.address +"<br>"+
+                "<B> DOB </B> - "+ this.dOB +"<br>"+
+                "<B> EmailAddress </B> - "+ this.emailAddress +"<br>"+
+                "<B> Mobile </B> - "+ this.mobile +"<br>"+
+                "<B> Home </B> - "+ this.home +"<br>"+
+                "<B> Married </B> - "+ this.married +"<br>";
     }
 
 }

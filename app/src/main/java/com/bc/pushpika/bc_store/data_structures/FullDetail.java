@@ -10,6 +10,14 @@ public class FullDetail {
     private String userID;
 
 
+    public FullDetail(PersonalDetail personalDetail, OccupationalDetail occupationalDetail, EducationalDetail educationalDetail, String isUserVerified, String userID) {
+        this.personalDetail = (personalDetail == null? new PersonalDetail():personalDetail);
+        this.occupationalDetail = (occupationalDetail == null? new OccupationalDetail():occupationalDetail);
+        this.educationalDetail = (educationalDetail == null? new EducationalDetail():educationalDetail);
+        //handle null
+        this.isUserVerified = isUserVerified;
+        this.userID = userID;
+    }
 
     public String getUserID() {
         return userID;
