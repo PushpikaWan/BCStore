@@ -2,31 +2,33 @@ package com.bc.pushpika.bc_store;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
     EditText emailField, passwordField, verifyPasswordField;
     Vibrator vibrator;
+    FirebaseAuth firebaseAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
     public void register(View view){
@@ -52,54 +55,53 @@ public class RegisterActivity extends AppCompatActivity {
 
         //first getting the values
         final String emailAddress = emailField.getText().toString();
-        final String password = Utill.md5(passwordField.getText().toString());
-        final String registerUrl = "http://192.168.1.104/bcApp-server/register.php";
+        final String password = passwordField.getText().toString();
 
-
-        //Call our volley library
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,registerUrl,
-                new Response.Listener<String>() {
+        firebaseAuth.createUserWithEmailAndPassword(emailAddress,password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onResponse(String response) {
-
-                        try {
-
-                            JSONObject obj = new JSONObject(response);
-                            if (obj.getBoolean("error")) {
-                                vibrator.vibrate(100);
-                                Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
-                            } else {
-
-                                //starting the login activity
-                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                            }
-
-                        } catch (JSONException e) {
-                            Toast.makeText(getApplicationContext(),"Registration Error", Toast.LENGTH_LONG).show();
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            doAfterRegistration();
+                            startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                            finish();
+                        }
+                        else{
                             vibrator.vibrate(100);
-                            //e.printStackTrace();
+                            Toast.makeText(getApplicationContext(),"Registration failed"+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                            Log.d("login error:",task.getException().getMessage());
                         }
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(),"Connection Error"+error, Toast.LENGTH_LONG).show();
-                        vibrator.vibrate(100);
-                        //error.printStackTrace();
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("emailAddress", emailAddress);
-                params.put("password", password);
+                });
 
-                return params;
-            }
-        };
+    }
 
-        VolleySingleton.getInstance(RegisterActivity.this).addToRequestQueue(stringRequest);
+    private void doAfterRegistration() {
+
+        FirebaseUser firebaseUser =  firebaseAuth.getCurrentUser();
+        if( firebaseUser != null){
+            SharedPreferences.Editor editor = getSharedPreferences("MY_PREF", MODE_PRIVATE).edit();
+            editor.putString("userID", firebaseUser.getUid());
+            editor.putString("emailAddress", firebaseUser.getEmail());
+            editor.putBoolean("isDataSubmitted",false);
+            editor.apply();
+
+            addInitialDataToDB(firebaseUser.getUid());
+        }
+        else{
+            vibrator.vibrate(100);
+            Toast.makeText(getApplicationContext(),"Registration failed",Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void addInitialDataToDB(String uid) {
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("UserStatus");
+
+        DatabaseReference ref = myRef.child(uid).child("isUserVerified");
+        ref.setValue(false);
     }
 
     private boolean validateData() {

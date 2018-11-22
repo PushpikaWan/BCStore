@@ -1,5 +1,6 @@
 package com.bc.pushpika.bc_store;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,24 +9,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.bc.pushpika.bc_store.data_structures.EducationalDetail;
+import com.bc.pushpika.bc_store.data_structures.FullDetail;
+import com.bc.pushpika.bc_store.data_structures.OccupationalDetail;
+import com.bc.pushpika.bc_store.data_structures.PersonalDetail;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Calendar;
 
 public class UserDataActivity extends AppCompatActivity {
 
-    EditText nameField, addressField, bloodTypeField, mobileField, alYearField;
+    EditText personalNameField,personalAddressField,personalDOBField;
+    EditText personalEmailField,personalMobileField,personalHomeField;
+
+    EditText educationalStreamField,educationalStartDateField;
+    EditText educationalEndDateField,educationalHigherStudiesField;
+
+    EditText occupationalCompanyNameField,occupationalCompanyAddressField;
+    EditText occupationalJobTitleField,occupationalPhoneField;
+    EditText occupationalStartDateField;
+
     Vibrator vibrator;
 
     @Override
@@ -33,11 +40,23 @@ public class UserDataActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_data);
 
-        nameField = findViewById(R.id.nameField);
-        addressField = findViewById(R.id.addressField);
-        bloodTypeField = findViewById(R.id.bloodTypeField);
-        mobileField = findViewById(R.id.mobileField);
-        alYearField = findViewById(R.id.alYearField);
+        personalNameField = findViewById(R.id.personalNameField);
+        personalAddressField = findViewById(R.id.personalAddressField);
+        personalDOBField = findViewById(R.id.personalDOBField);
+        personalEmailField = findViewById(R.id.personalEmailField);
+        personalMobileField = findViewById(R.id.personalMobileField);
+        personalHomeField = findViewById(R.id.personalHomeField);
+
+        educationalStreamField = findViewById(R.id.educationalStreamField);
+        educationalStartDateField = findViewById(R.id.educationalStartDateField);
+        educationalEndDateField = findViewById(R.id.educationalEndDateField);
+        educationalHigherStudiesField = findViewById(R.id.educationalHigherStudiesField);
+
+        occupationalCompanyNameField = findViewById(R.id.occupationalCompanyNameField);
+        occupationalCompanyAddressField = findViewById(R.id.occupationalCompanyAddressField);
+        occupationalJobTitleField = findViewById(R.id.occupationalJobTitleField);
+        occupationalPhoneField = findViewById(R.id.occupationalPhoneField);
+        occupationalStartDateField = findViewById(R.id.occupationalStartDateField);
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -51,94 +70,120 @@ public class UserDataActivity extends AppCompatActivity {
     }
 
 
-
     private void submitUserData() {
+
         //first getting the values
-        SharedPreferences.Editor editor = getSharedPreferences("", MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = getSharedPreferences("MY_PREF", MODE_PRIVATE).edit();
         SharedPreferences prefs = getSharedPreferences("MY_PREF", MODE_PRIVATE);
 
-        final String userID = prefs.getString("userID", null);
-        final String name = nameField.getText().toString().trim();
-        final String address = addressField.getText().toString().trim();
-        final String emailAddress = prefs.getString("emailAddress", null);
-        final String bloodType = bloodTypeField.getText().toString().trim();
-        final String mobileNumber = mobileField.getText().toString().trim();
-        final String advancedLevelYear = alYearField.getText().toString().trim();
+        PersonalDetail personalDetail = getCurrentPersonalDetails();
+        EducationalDetail educationalDetail = getCurrentEducationalDetails();
+        OccupationalDetail occupationalDetail = getCurrentOccupationalDetails();
 
-        Log.d("response id",userID);
-        Log.d("response email",emailAddress);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("UserData");
 
+        String uId = prefs.getString("userID", "def");
 
-        final String registerUrl = "http://192.168.1.104/bcApp-server/userData.php";
+        DatabaseReference ref = myRef.child(uId);
 
-        //Call our volley library
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,registerUrl,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
+        ref.child("personalDetails").setValue(personalDetail);
+        ref.child("educationalDetails").setValue(educationalDetail);
+        ref.child("occupationalDetails").setValue(occupationalDetail);
 
-                        try {
+        editor.putBoolean("isDataSubmitted",true);
+        editor.apply();
 
-                            JSONObject obj = new JSONObject(response);
-                            if (obj.getBoolean("error")) {
-                                vibrator.vibrate(100);
-                                Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
-                            } else {
+        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        finish();
 
-                                //starting the login activity
-                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                            }
-
-                        } catch (JSONException e) {
-                            Toast.makeText(getApplicationContext(),"Data insertion Error", Toast.LENGTH_LONG).show();
-                            vibrator.vibrate(100);
-                            //e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(),"Connection Error"+error, Toast.LENGTH_LONG).show();
-                        vibrator.vibrate(100);
-                        //error.printStackTrace();
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("userID", userID);
-                params.put("name", name);
-                params.put("address",address);
-                params.put("emailAddress", emailAddress);
-                params.put("bloodType", bloodType);
-                params.put("mobileNumber", mobileNumber);
-                params.put("advancedLevelYear", advancedLevelYear);
-
-                return params;
-            }
-        };
-
-        VolleySingleton.getInstance(UserDataActivity.this).addToRequestQueue(stringRequest);
     }
 
+    private OccupationalDetail getCurrentOccupationalDetails() {
+
+        OccupationalDetail occupationalDetail = new OccupationalDetail();
+
+        occupationalDetail.setCompanyName(occupationalCompanyNameField.getText().toString().trim());
+        occupationalDetail.setCompanyAddress(occupationalCompanyAddressField.getText().toString().trim());
+        occupationalDetail.setJobTitle(occupationalJobTitleField.getText().toString().trim());
+        occupationalDetail.setPhone(occupationalPhoneField.getText().toString().trim());
+        occupationalDetail.setStartDate(occupationalStartDateField.getText().toString().trim());
+
+        return occupationalDetail;
+    }
+
+    private EducationalDetail getCurrentEducationalDetails() {
+
+        EducationalDetail educationalDetail = new EducationalDetail();
+
+        educationalDetail.setStream(educationalStreamField.getText().toString().trim());
+        educationalDetail.setStartDate(educationalStartDateField.getText().toString().trim());
+        educationalDetail.setEndDate(educationalEndDateField.getText().toString().trim());
+        educationalDetail.setHigherStudies(educationalHigherStudiesField.getText().toString().trim());
+
+        return educationalDetail;
+    }
+
+
+    private PersonalDetail getCurrentPersonalDetails() {
+
+        PersonalDetail personalDetail = new PersonalDetail();
+        personalDetail.setName(personalNameField.getText().toString().trim());
+        personalDetail.setAddress(personalAddressField.getText().toString().trim());
+        personalDetail.setdOB(personalDOBField.getText().toString().trim());
+        personalDetail.setEmailAddress(personalEmailField.getText().toString().trim());
+        personalDetail.setMobile(personalMobileField.getText().toString().trim());
+        personalDetail.setHome(personalHomeField.getText().toString().trim());
+
+        return personalDetail;
+    }
+
+
     private boolean validateData() {
-        if(!isNotEmptyField(nameField) || !isNotEmptyField(addressField) ||
-                !isNotEmptyField(bloodTypeField)){
+
+        if(!isNotEmptyField(personalNameField) || !isNotEmptyField(personalAddressField) ||
+                !isNotEmptyField(personalDOBField) ||!isNotEmptyField(personalEmailField)){
             return false;
         }
 
-       if(mobileField.getText().toString().trim().length() != 10){
+        if(!isNotEmptyField(educationalStreamField) || !isNotEmptyField(educationalStartDateField) ||
+                !isNotEmptyField(educationalEndDateField) ||!isNotEmptyField(educationalHigherStudiesField)){
+            return false;
+        }
+
+        if(!isNotEmptyField(occupationalCompanyNameField) || !isNotEmptyField(occupationalCompanyAddressField) ||
+                !isNotEmptyField(occupationalJobTitleField) ||!isNotEmptyField(occupationalStartDateField)){
+            return false;
+        }
+
+        if(!isNotEmptyField(personalNameField) || !isNotEmptyField(personalAddressField) ||
+                !isNotEmptyField(personalDOBField) ||!isNotEmptyField(personalEmailField)){
+            return false;
+        }
+
+       if(personalMobileField.getText().toString().trim().length() != 10){
            vibrator.vibrate(100);
-           mobileField.setError("should be 10 character number");
+           personalMobileField.setError("should be 10 character number");
            return false;
        }
 
-       if(alYearField.getText().toString().trim().length() != 4){
-           vibrator.vibrate(100);
-           alYearField.setError("should be valid year");
-           return false;
-       }
+       if(personalHomeField.getText().toString().trim().length() != 10){
+            vibrator.vibrate(100);
+            personalHomeField.setError("should be 10 character number");
+            return false;
+        }
+
+        if(occupationalPhoneField.getText().toString().trim().length() != 10){
+            vibrator.vibrate(100);
+            occupationalPhoneField.setError("should be 10 character number");
+            return false;
+        }
+
+//       if(alYearField.getText().toString().trim().length() != 4){
+//           vibrator.vibrate(100);
+//           alYearField.setError("should be valid year");
+//           return false;
+//       }
 
        return true;
     }

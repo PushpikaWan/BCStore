@@ -2,6 +2,7 @@ package com.bc.pushpika.bc_store;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
@@ -17,7 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -38,7 +39,40 @@ public class LoginActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        checkUserLoggedIn();
 
+    }
+
+    private void checkUserLoggedIn() {
+
+        //FirebaseAuth.getInstance().signOut();
+
+        if(firebaseAuth.getCurrentUser()!=null){
+
+            startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
+            checkUserStateAndStartActivity();
+        }
+
+    }
+
+//this method is duplicated in register and login due to safe delete prefs
+    private void checkUserStateAndStartActivity() {
+        FirebaseUser firebaseUser =  firebaseAuth.getCurrentUser();
+        if( firebaseUser != null){
+            SharedPreferences.Editor editor = getSharedPreferences("MY_PREF", MODE_PRIVATE).edit();
+            editor.putString("userID", firebaseUser.getUid());
+            editor.putString("emailAddress", firebaseUser.getEmail());
+            editor.apply();
+        }
+
+        SharedPreferences prefs = getSharedPreferences("MY_PREF", MODE_PRIVATE);
+
+        if(!prefs.getBoolean("isDataSubmitted", false)){
+            startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
+        }
+        else{
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        }
     }
 
     public void goRegistration(View view){
@@ -49,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login(View view){
+
         if(!validateData()){
             return;
         }
@@ -69,8 +104,9 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
-                            finish();
+                            checkUserLoggedIn();
+//                            startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
+//                            finish();
                         }
                         else{
                             vibrator.vibrate(100);

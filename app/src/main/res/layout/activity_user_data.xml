@@ -52,9 +52,10 @@
                     android:textColor="#fff"
                     android:inputType="textPersonName"
                     android:textColorHint="#fff"
-                    android:hint="Name"
+                    android:hint="@string/name"
                     android:drawablePadding="12dp"
                     android:padding="16dp" />
+
             </android.support.design.widget.TextInputLayout>
 
             <!-- Address Label -->
@@ -71,7 +72,7 @@
                     android:inputType="textPostalAddress"
                     android:textColor="#fff"
                     android:textColorHint="#fff"
-                    android:hint="Address"
+                    android:hint="@string/address"
                     android:drawablePadding="12dp"
                     android:padding="16dp" />
 
@@ -88,10 +89,10 @@
                 <EditText android:id="@+id/personalDOBField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPostalAddress"
+                    android:inputType="date"
                     android:textColor="#fff"
                     android:textColorHint="#fff"
-                    android:hint="Date of Birth"
+                    android:hint="@string/date_of_birth"
                     android:drawablePadding="12dp"
                     android:padding="16dp" />
 
@@ -110,8 +111,10 @@
                     android:layout_height="wrap_content"
                     android:textColor="#fff"
                     android:textColorHint="#fff"
-                    android:hint="Email address"
+                    android:hint="@string/email_address"
                     android:inputType="textEmailAddress"
+                    android:drawablePadding="12dp"
+                    android:padding="16dp"
                    />
 
             </android.support.design.widget.TextInputLayout>
@@ -129,8 +132,10 @@
                     android:layout_height="wrap_content"
                     android:textColor="#fff"
                     android:textColorHint="#fff"
-                    android:hint="Mobile"
-                    android:inputType="number" />
+                    android:hint="@string/mobile"
+                    android:inputType="phone"
+                    android:drawablePadding="12dp"
+                    android:padding="16dp"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -147,12 +152,14 @@
                     android:layout_height="wrap_content"
                     android:textColor="#fff"
                     android:textColorHint="#fff"
-                    android:hint="Home"
-                    android:inputType="number" />
+                    android:hint="@string/home"
+                    android:inputType="phone"
+                    android:drawablePadding="12dp"
+                    android:padding="16dp"/>
 
             </android.support.design.widget.TextInputLayout>
 
-            <!-- married Label -->
+    <!-- spinner -->        <!-- married Label -->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -165,15 +172,17 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:textColorHint="#fff"
-                    android:hint="Married"
-                    android:textColor="#fff"/>
+                    android:hint="@string/married"
+                    android:textColor="#fff"
+                    android:drawablePadding="12dp"
+                    android:padding="16dp"/>
 
             </android.support.design.widget.TextInputLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:padding="16dp"
+                android:padding="32dp"
                 android:background="@android:color/darker_gray"/>
 
             <!-- educational data -->
@@ -189,7 +198,7 @@
                 android:layout_gravity="center"
                 android:textAlignment="textStart" />
 
-            <!-- Stream Label -->
+            <!-- spinner -->              <!-- Stream Label -->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -221,9 +230,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#fff"
-                    android:inputType="textPersonName"
+                    android:inputType="date"
                     android:textColorHint="#fff"
-                    android:hint="Start Date"
+                    android:hint="@string/start_date"
                     android:drawablePadding="12dp"
                     android:padding="16dp" />
             </android.support.design.widget.TextInputLayout>
@@ -241,11 +250,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#fff"
-                    android:inputType="textPersonName"
+                    android:inputType="date"
                     android:textColorHint="#fff"
-                    android:hint="End Date"
+                    android:hint="@string/end_date"
                     android:drawablePadding="12dp"
                     android:padding="16dp" />
+
             </android.support.design.widget.TextInputLayout>
 
             <!-- Higher studies Label -->
@@ -272,7 +282,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:padding="16dp"
+                android:padding="32dp"
                 android:background="@android:color/darker_gray"/>
 
             <!-- occupational data -->
@@ -303,7 +313,7 @@
                     android:textColor="#fff"
                     android:inputType="textPersonName"
                     android:textColorHint="#fff"
-                    android:hint="Company Name"
+                    android:hint="@string/company_name"
                     android:drawablePadding="12dp"
                     android:padding="16dp" />
             </android.support.design.widget.TextInputLayout>
@@ -323,7 +333,7 @@
                     android:textColor="#fff"
                     android:inputType="textPersonName"
                     android:textColorHint="#fff"
-                    android:hint="Company Address"
+                    android:hint="@string/company_address"
                     android:drawablePadding="12dp"
                     android:padding="16dp" />
             </android.support.design.widget.TextInputLayout>
@@ -343,7 +353,7 @@
                     android:textColor="#fff"
                     android:inputType="textPersonName"
                     android:textColorHint="#fff"
-                    android:hint="Job Title"
+                    android:hint="@string/job_title"
                     android:drawablePadding="12dp"
                     android:padding="16dp" />
             </android.support.design.widget.TextInputLayout>
@@ -361,9 +371,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#fff"
-                    android:inputType="textPersonName"
+                    android:inputType="phone"
                     android:textColorHint="#fff"
-                    android:hint="Company Phone"
+                    android:hint="@string/company_phone"
                     android:drawablePadding="12dp"
                     android:padding="16dp" />
             </android.support.design.widget.TextInputLayout>
@@ -381,9 +391,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#fff"
-                    android:inputType="textPersonName"
+                    android:inputType="date"
                     android:textColorHint="#fff"
-                    android:hint="Job Start Date"
+                    android:hint="@string/job_start_date"
                     android:drawablePadding="12dp"
                     android:padding="16dp" />
             </android.support.design.widget.TextInputLayout>

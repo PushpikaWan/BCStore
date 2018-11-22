@@ -5,9 +5,25 @@
     <string name="email_here">email here</string>
     <string name="password_here">password here</string>
     <string name="password">password</string>
-    <string name="email_address">Email address</string>
     <string name="forget_your_password">Forget your Password?</string>
     <string name="sign_up">Sign up</string>
     <string name="verify_password">verify password</string>
     <string name="submit">Submit</string>
+    <string name="personal_details">PersonalDetails</string>
+    <string name="educational_details">Educational Details</string>
+    <string name="occupational_details">Occupational Details</string>
+    <string name="name">Name</string>
+    <string name="address">Address</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="email_address">Email address</string>
+    <string name="mobile">Mobile</string>
+    <string name="home">Home</string>
+    <string name="married">Married</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="company_name">Company Name</string>
+    <string name="company_address">Company Address</string>
+    <string name="job_title">Job Title</string>
+    <string name="company_phone">Company Phone</string>
+    <string name="job_start_date">Job Start Date</string>
 </resources>
