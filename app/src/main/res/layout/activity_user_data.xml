@@ -19,11 +19,23 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
             android:paddingTop="56dp"
             android:paddingLeft="24dp"
             android:paddingRight="24dp">
+
+
+            <!-- personal data -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/darker_gray"
+                android:padding="16dp"
+                android:text="@string/personal_details"
+                android:textSize="25dp"
+                android:gravity="start"
+                android:layout_gravity="center"
+                android:textAlignment="textStart" />
 
             <!-- Name Label -->
             <android.support.design.widget.TextInputLayout
@@ -34,15 +46,15 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
-                <EditText android:id="@+id/nameField"
+                <EditText android:id="@+id/personalNameField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#fff"
                     android:inputType="textPersonName"
-                    android:drawablePadding="12dp"
-                    android:padding="16dp"
                     android:textColorHint="#fff"
-                    android:hint="Name" />
+                    android:hint="Name"
+                    android:drawablePadding="12dp"
+                    android:padding="16dp" />
             </android.support.design.widget.TextInputLayout>
 
             <!-- Address Label -->
@@ -53,18 +65,37 @@
                 android:textColorHint="#fff"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
-                <EditText android:id="@+id/addressField"
+                <EditText android:id="@+id/personalAddressField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPostalAddress"
                     android:textColor="#fff"
                     android:textColorHint="#fff"
+                    android:hint="Address"
                     android:drawablePadding="12dp"
-                    android:padding="16dp"
-                    android:hint="Address" />
+                    android:padding="16dp" />
+
             </android.support.design.widget.TextInputLayout>
 
+            <!-- dob Label -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+                <EditText android:id="@+id/personalDOBField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPostalAddress"
+                    android:textColor="#fff"
+                    android:textColorHint="#fff"
+                    android:hint="Date of Birth"
+                    android:drawablePadding="12dp"
+                    android:padding="16dp" />
 
+            </android.support.design.widget.TextInputLayout>
 
             <!--  Email Label -->
             <android.support.design.widget.TextInputLayout
@@ -74,15 +105,16 @@
                 android:textColor="#fff"
                 android:textColorHint="#fff"
                 android:layout_marginBottom="8dp">
-                <EditText android:id="@+id/bloodTypeField"
+                <EditText android:id="@+id/personalEmailField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#fff"
                     android:textColorHint="#fff"
+                    android:hint="Email address"
                     android:inputType="textEmailAddress"
-                    android:hint="BloodType" />
-            </android.support.design.widget.TextInputLayout>
+                   />
 
+            </android.support.design.widget.TextInputLayout>
 
             <!-- mobile number -->
             <android.support.design.widget.TextInputLayout
@@ -92,16 +124,35 @@
                 android:textColorHint="#fff"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
-                <EditText android:id="@+id/mobileField"
+                <EditText android:id="@+id/personalMobileField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColorHint="#fff"
                     android:textColor="#fff"
-                    android:inputType="number"
-                    android:hint="Mobile Number" />
+                    android:textColorHint="#fff"
+                    android:hint="Mobile"
+                    android:inputType="number" />
+
             </android.support.design.widget.TextInputLayout>
 
-            <!-- Password Label -->
+            <!-- home number -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+                <EditText android:id="@+id/personalHomeField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:textColorHint="#fff"
+                    android:hint="Home"
+                    android:inputType="number" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- married Label -->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -109,14 +160,234 @@
                 android:textColorHint="#fff"
                 android:textColor="#fff"
                 android:layout_marginBottom="8dp">
-                <EditText android:id="@+id/alYearField"
+                <EditText android:id="@+id/personalMarriedField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:textColorHint="#fff"
-                    android:textColor="#fff"
-                    android:hint="A/L year"/>
+                    android:hint="Married"
+                    android:textColor="#fff"/>
+
             </android.support.design.widget.TextInputLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:padding="16dp"
+                android:background="@android:color/darker_gray"/>
+
+            <!-- educational data -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/darker_gray"
+                android:padding="16dp"
+                android:textSize="25dp"
+                android:text="@string/educational_details"
+                android:gravity="start"
+                android:layout_gravity="center"
+                android:textAlignment="textStart" />
+
+            <!-- Stream Label -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+                <EditText android:id="@+id/educationalStreamField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:inputType="textPersonName"
+                    android:textColorHint="#fff"
+                    android:hint="A/L Stream"
+                    android:drawablePadding="12dp"
+                    android:padding="16dp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Start date Label -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+                <EditText android:id="@+id/educationalStartDateField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:inputType="textPersonName"
+                    android:textColorHint="#fff"
+                    android:hint="Start Date"
+                    android:drawablePadding="12dp"
+                    android:padding="16dp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- End date Label -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+                <EditText android:id="@+id/educationalEndDateField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:inputType="textPersonName"
+                    android:textColorHint="#fff"
+                    android:hint="End Date"
+                    android:drawablePadding="12dp"
+                    android:padding="16dp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Higher studies Label -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+                <EditText android:id="@+id/educationalHigherStudiesField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:textColorHint="#fff"
+                    android:hint="Higher Studies"
+                    android:inputType="textPersonName"
+                    android:drawablePadding="12dp"
+                    android:padding="16dp" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:padding="16dp"
+                android:background="@android:color/darker_gray"/>
+
+            <!-- occupational data -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="25dp"
+                android:padding="16dp"
+                android:text="@string/occupational_details"
+                android:gravity="start"
+                android:layout_gravity="center"
+                android:textAlignment="textStart" />
+
+            <!-- Company name Label -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+                <EditText android:id="@+id/occupationalCompanyNameField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:inputType="textPersonName"
+                    android:textColorHint="#fff"
+                    android:hint="Company Name"
+                    android:drawablePadding="12dp"
+                    android:padding="16dp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Address Label -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+                <EditText android:id="@+id/occupationalCompanyAddressField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:inputType="textPersonName"
+                    android:textColorHint="#fff"
+                    android:hint="Company Address"
+                    android:drawablePadding="12dp"
+                    android:padding="16dp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Job title Label -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+                <EditText android:id="@+id/occupationalJobTitleField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:inputType="textPersonName"
+                    android:textColorHint="#fff"
+                    android:hint="Job Title"
+                    android:drawablePadding="12dp"
+                    android:padding="16dp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Phone Label -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+                <EditText android:id="@+id/occupationalPhoneField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:inputType="textPersonName"
+                    android:textColorHint="#fff"
+                    android:hint="Company Phone"
+                    android:drawablePadding="12dp"
+                    android:padding="16dp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Start Date Label -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+                <EditText android:id="@+id/occupationalStartDateField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:inputType="textPersonName"
+                    android:textColorHint="#fff"
+                    android:hint="Job Start Date"
+                    android:drawablePadding="12dp"
+                    android:padding="16dp" />
+            </android.support.design.widget.TextInputLayout>
+
 
             <!-- Submit Button -->
 
