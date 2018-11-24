@@ -1,5 +1,6 @@
 package com.bc.pushpika.bc_store;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -40,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
     public static String userId;
     public static boolean isAdmin;
 
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +58,8 @@ public class LoginActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        progressDialog = new ProgressDialog(this);
+
         checkUserLoggedIn();
 
     }
@@ -62,12 +67,20 @@ public class LoginActivity extends AppCompatActivity {
     private void checkUserLoggedIn() {
 
         //FirebaseAuth.getInstance().signOut();
+        progressDialog.setMessage("loading ......");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         if(firebaseAuth.getCurrentUser()!=null){
 
 //            startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
             checkUserStateAndStartActivity();
         }
+//        else{
+//            if(progressDialog.isShowing())progressDialog.dismiss();
+//
+//            Toast.makeText(getApplicationContext(),"something went wrong",Toast.LENGTH_SHORT).show();
+//        }
 
     }
 
@@ -120,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
     private void nevigateToNextPageAfterCheckAdmin() {
 
         SharedPreferences prefs = getSharedPreferences("MY_PREF", MODE_PRIVATE);
-
+        progressDialog.dismiss();
         if(!prefs.getBoolean("isDataSubmitted", false)){
             finish();
             startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
