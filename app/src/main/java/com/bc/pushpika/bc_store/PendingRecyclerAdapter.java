@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alespero.expandablecardview.ExpandableCardView;
 import com.bc.pushpika.bc_store.data_structures.EducationalDetail;
 import com.bc.pushpika.bc_store.data_structures.FullDetail;
 import com.bc.pushpika.bc_store.data_structures.OccupationalDetail;
@@ -100,7 +101,10 @@ public class PendingRecyclerAdapter extends RecyclerView.Adapter<PendingRecycler
 
         holder.title.setText(itemList.get(position).getPersonalDetail().getName());
         holder.id.setText(itemList.get(position).getUserID());
-        holder.contentLayout.setText(Html.fromHtml(getContentText(itemList.get(position))));
+
+        holder.personalDataCard.setText(Html.fromHtml((itemList.get(position)).getPersonalDetail().AllPersonalDataText()));
+        holder.educationalDataCard.setText(Html.fromHtml((itemList.get(position)).getEducationalDetail().AllEducationalDataText()));
+        holder.occupationalDataCard.setText(Html.fromHtml((itemList.get(position)).getOccupationalDetail().AllOccupationalDataText()));
 
         holder.approveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,39 +139,6 @@ public class PendingRecyclerAdapter extends RecyclerView.Adapter<PendingRecycler
 
             }
         });
-
-        holder.showMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (holder.contentLayout.isShown()) {
-                    holder.contentLayout.startAnimation(animationUp);
-
-                    CountDownTimer countDownTimerStatic = new CountDownTimer(COUNTDOWN_RUNNING_TIME, 16) {
-                        @Override
-                        public void onTick(long millisUntilFinished) {
-                        }
-
-                        @Override
-                        public void onFinish() {
-                            holder.contentLayout.setVisibility(View.GONE);
-                        }
-                    };
-                    countDownTimerStatic.start();
-
-                    holder.showMore.setImageResource(R.drawable.arrow_down);
-                } else {
-                    holder.contentLayout.setVisibility(View.VISIBLE);
-                    holder.contentLayout.startAnimation(animationDown);
-                    holder.showMore.setImageResource(R.drawable.arrow_up_black_24dp);
-                }
-            }
-        });
-    }
-
-    private String getContentText(FullDetail fullDetail) {
-        return fullDetail.getPersonalDetail().getAllPersonalDataText()+
-                fullDetail.getEducationalDetail().getAllEducationalDataText()+
-                fullDetail.getOccupationalDetail().getAllOccupationalDataText();
     }
 
     @Override
@@ -179,19 +150,50 @@ public class PendingRecyclerAdapter extends RecyclerView.Adapter<PendingRecycler
         //      private ImageView image;
         private TextView id; //hidden field to get id of displayed user data
         private TextView title;
-        private ImageButton showMore;
-        private TextView contentLayout;
+        private TextView personalDataCard;
+        private TextView educationalDataCard;
+        private TextView occupationalDataCard;
         private Button approveButton;
+        private ExpandableCardView expandableCardView;
+        private ExpandableCardView personalDataView,educationalDataView,occupationalDataView;
 
         private PendingReyclerViewHolder(final View v) {
             super(v);
 
             //        image = (ImageView) v.findViewById(R.id.image);
+            expandableCardView = v.findViewById(R.id.profile);
             approveButton = v.findViewById(R.id.approve_btn);
             id = v.findViewById(R.id.id_hidden);
             title = v.findViewById(R.id.title);
-            contentLayout = v.findViewById(R.id.content);
-            showMore = v.findViewById(R.id.show_more);
+            personalDataCard = v.findViewById(R.id.personalDataCard);
+            educationalDataCard = v.findViewById(R.id.educationalDataCard);
+            occupationalDataCard = v.findViewById(R.id.occupationalDataCard);
+
+            personalDataView = v.findViewById(R.id.personalDataView);
+            educationalDataView = v.findViewById(R.id.educationalDataView);
+            occupationalDataView = v.findViewById(R.id.occupationalDataView);
+
+            personalDataView.setOnExpandedListener(new ExpandableCardView.OnExpandedListener() {
+                @Override
+                public void onExpandChanged(View v, boolean isExpanded) {
+                    expandableCardView.expand();
+                }
+            });
+
+            educationalDataView.setOnExpandedListener(new ExpandableCardView.OnExpandedListener() {
+                @Override
+                public void onExpandChanged(View v, boolean isExpanded) {
+                    expandableCardView.expand();
+                }
+            });
+
+            occupationalDataView.setOnExpandedListener(new ExpandableCardView.OnExpandedListener() {
+                @Override
+                public void onExpandChanged(View v, boolean isExpanded) {
+                    expandableCardView.expand();
+                }
+            });
+
         }
     }
 }
