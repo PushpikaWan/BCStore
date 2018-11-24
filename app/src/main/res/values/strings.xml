@@ -35,4 +35,13 @@
     <string name="search_users_using_data_fields">Search Users using data fields</string>
     <string name="user_data">User Data</string>
     <string name="show_and_edit_user_data">Show and edit User Data</string>
+    <string name="search_text">search text</string>
+
+    <string-array name="search_fields">
+        <item>Name</item>
+        <item>Address</item>
+        <item>A/L Stream</item>
+        <item>Company Name</item>
+    </string-array>
+
 </resources>

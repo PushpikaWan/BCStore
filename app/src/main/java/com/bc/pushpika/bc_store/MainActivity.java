@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void searchUsers(View view){
-
+        startActivity(new Intent(getApplicationContext(),ListViewActivity.class));
     }
 
     public void approveUsers(View view){
