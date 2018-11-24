@@ -63,10 +63,9 @@ public class OccupationalDetail {
         this.startDate = startDate;
     }
 
-    public String getAllOccupationalDataText(){
+    public String AllOccupationalDataText(){
 
-        return "<br> <br> <B> Occupational Data </B>  <br> <br>"+
-                "<B> Company Name </B> - "+ this.companyName +"<br>"+
+        return "<B> Company Name </B> - "+ this.companyName +"<br>"+
                 "<B> Company Address </B> - "+ this.companyAddress +"<br>"+
                 "<B> Job Title </B> - "+ this.jobTitle +"<br>"+
                 "<B> Start Date </B> - "+ this.startDate +"<br>"+

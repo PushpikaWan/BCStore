@@ -14,11 +14,20 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bc.pushpika.bc_store.data_structures.PersonalDetail;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.List;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -28,13 +37,16 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
 
     //move these two to shared prefereneces
-    public static String userId = "";
-    public static boolean isAdmin = true;
+    public static String userId;
+    public static boolean isAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        userId = "";
+        isAdmin = false;
 
         emailField = findViewById(R.id.emailField);
         passwordField = findViewById(R.id.passwordField);
@@ -53,13 +65,42 @@ public class LoginActivity extends AppCompatActivity {
 
         if(firebaseAuth.getCurrentUser()!=null){
 
-            startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
+//            startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
             checkUserStateAndStartActivity();
         }
 
     }
 
-//this method is duplicated in register and login due to safe delete prefs
+    private void checkAdminPermissions(){
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("AdminData");
+
+
+        myRef.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        //Get map of users in datasnapshot
+                        for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+
+                            if( messageSnapshot.getKey().equals(userId)){
+                                isAdmin = true;
+                            }
+                        }
+                        nevigateToNextPageAfterCheckAdmin();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                    }
+                });
+
+    }
+
+
+    //this method is duplicated in register and login due to safe delete prefs
     private void checkUserStateAndStartActivity() {
         FirebaseUser firebaseUser =  firebaseAuth.getCurrentUser();
         if( firebaseUser != null){
@@ -72,6 +113,11 @@ public class LoginActivity extends AppCompatActivity {
 
             editor.apply();
         }
+
+        checkAdminPermissions();
+    }
+
+    private void nevigateToNextPageAfterCheckAdmin() {
 
         SharedPreferences prefs = getSharedPreferences("MY_PREF", MODE_PRIVATE);
 

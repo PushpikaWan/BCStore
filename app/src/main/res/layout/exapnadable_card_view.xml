@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+    android:id="@+id/id_hidden"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:text="@string/app_name"
+    android:visibility="gone"
+    android:textStyle="bold" />
+
+    <com.alespero.expandablecardview.ExpandableCardView
+        android:id="@+id/personalDataView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:title="Personal Data"
+        app:icon="@drawable/ic_person"
+        app:inner_view="@layout/card_view_personal"
+        app:expandOnClick="true"
+        app:animationDuration="300"
+        app:startExpanded="false"/>
+
+    <com.alespero.expandablecardview.ExpandableCardView
+        android:id="@+id/educationalDataView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/personalDataView"
+        app:title="Educational Data"
+        app:icon="@drawable/ic_person"
+        app:inner_view="@layout/card_view_educational"
+        app:expandOnClick="true"
+        app:animationDuration="300"
+        app:startExpanded="false"/>
+
+    <com.alespero.expandablecardview.ExpandableCardView
+        android:id="@+id/occupationalDataView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/educationalDataView"
+        app:title="Occupational Data"
+        app:icon="@drawable/ic_person"
+        app:inner_view="@layout/card_view_occupational"
+        app:expandOnClick="true"
+        app:animationDuration="300"
+        app:startExpanded="false"/>
+
+
+    <Button
+        android:id="@+id/approve_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/occupationalDataView"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/approve"
+        android:background="@drawable/background_approve"
+        android:onClick="goRegistration"
+        style="@style/Base.TextAppearance.AppCompat.Body1"
+        android:textColor="#fff"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:paddingTop="24dp"
+        android:paddingBottom="24dp"
+        android:padding="16dp"
+        android:focusable="true" />
+
+</RelativeLayout>

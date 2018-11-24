@@ -56,10 +56,9 @@ public class EducationalDetail {
         this.stream = stream;
     }
 
-    public String getAllEducationalDataText(){
+    public String AllEducationalDataText(){
 
-        return "<br> <br> <B> Educational Data </B>  <br> <br>"+
-                "<B> A/L Stream </B> - "+ this.stream +"<br>"+
+        return "<B> A/L Stream </B> - "+ this.stream +"<br>"+
                 "<B> Start Date </B> - "+ this.startDate +"<br>"+
                 "<B> End Date </B> - "+ this.endDate +"<br>"+
                 "<B> Higher studies </B> - "+ this.higherStudies +"<br>";

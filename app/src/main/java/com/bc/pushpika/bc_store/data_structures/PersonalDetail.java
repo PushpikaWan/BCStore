@@ -83,10 +83,9 @@ public class PersonalDetail {
         this.name = name;
     }
 
-    public String getAllPersonalDataText(){
+    public String AllPersonalDataText(){
 
-        return " <B> Occupational Data </B>  <br> <br>"+
-                "<B> Name </B> - "+ this.name +"<br>"+
+        return "<B> Name </B> - "+ this.name +"<br>"+
                 "<B> Address </B> - "+ this.address +"<br>"+
                 "<B> DOB </B> - "+ this.dOB +"<br>"+
                 "<B> EmailAddress </B> - "+ this.emailAddress +"<br>"+

@@ -122,9 +122,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Reycle
     }
 
     private String getContentText(FullDetail fullDetail) {
-     return fullDetail.getPersonalDetail().getAllPersonalDataText()+
-     fullDetail.getEducationalDetail().getAllEducationalDataText()+
-     fullDetail.getOccupationalDetail().getAllOccupationalDataText();
+     return fullDetail.getPersonalDetail().AllPersonalDataText()+
+     fullDetail.getEducationalDetail().AllEducationalDataText()+
+     fullDetail.getOccupationalDetail().AllOccupationalDataText();
     }
 
     @Override

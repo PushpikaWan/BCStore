@@ -8,24 +8,5 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!--<style name="login_edit_text_style">-->
-        <!--<item name="android:gravity">center</item>-->
-        <!--<item name="android:layout_margin">10dp</item>-->
-        <!--<item name="android:textSize">15sp</item>-->
-        <!--<item name="android:background">@drawable/edittext_background</item>-->
-    <!--</style>-->
-
-    <!--<style name="login_button_style">-->
-        <!--<item name="android:gravity">center</item>-->
-        <!--<item name="android:layout_margin">10dp</item>-->
-        <!--<item name="android:textSize">18sp</item>-->
-        <!--<item name="android:textColor">#FDFDFE</item>-->
-        <!--&lt;!&ndash;<item name="android:background">@drawable/button_background</item>&ndash;&gt;-->
-    <!--</style>-->
-
-    <!--<style name="text_view_style">-->
-        <!--<item name="android:textColor">#d8e6f2</item>-->
-    <!--</style>-->
-
 
 </resources>

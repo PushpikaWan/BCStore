@@ -193,7 +193,6 @@ public class PendingRecyclerAdapter extends RecyclerView.Adapter<PendingRecycler
                     expandableCardView.expand();
                 }
             });
-
         }
     }
 }

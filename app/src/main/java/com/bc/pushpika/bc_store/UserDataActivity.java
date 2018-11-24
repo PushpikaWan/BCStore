@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class UserDataActivity extends AppCompatActivity {
 
     EditText personalNameField,personalAddressField,personalDOBField;
-    EditText personalEmailField,personalMobileField,personalHomeField;
+    EditText personalEmailField,personalMobileField,personalHomeField,personalMarriedField;
 
     EditText educationalStreamField,educationalStartDateField;
     EditText educationalEndDateField,educationalHigherStudiesField;
@@ -40,6 +40,7 @@ public class UserDataActivity extends AppCompatActivity {
         personalEmailField = findViewById(R.id.personalEmailField);
         personalMobileField = findViewById(R.id.personalMobileField);
         personalHomeField = findViewById(R.id.personalHomeField);
+        personalMarriedField = findViewById(R.id.personalMarriedField);
 
         educationalStreamField = findViewById(R.id.educationalStreamField);
         educationalStartDateField = findViewById(R.id.educationalStartDateField);
@@ -133,6 +134,7 @@ public class UserDataActivity extends AppCompatActivity {
         personalDetail.setEmailAddress(personalEmailField.getText().toString().trim());
         personalDetail.setMobile(personalMobileField.getText().toString().trim());
         personalDetail.setHome(personalHomeField.getText().toString().trim());
+        personalDetail.setMarried(personalMarriedField.getText().toString().trim());
 
         return personalDetail;
     }

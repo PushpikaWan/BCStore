@@ -5,22 +5,36 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button approveUserButton;
+    LinearLayout adminView, normalView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        approveUserButton = findViewById(R.id.button3);
+        adminView = findViewById(R.id.adminView);
+        normalView = findViewById(R.id.normalView);
+
         if(LoginActivity.isAdmin){
-            approveUserButton.setVisibility(View.VISIBLE);
+            adminView.setVisibility(View.VISIBLE);
         }
+        else{
+            normalView.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+    public void userData(View view){
+
+    }
+
+    public void searchUsers(View view){
 
     }
 

@@ -27,4 +27,12 @@
     <string name="company_phone">Company Phone</string>
     <string name="job_start_date">Job Start Date</string>
     <string name="approve">Approve</string>
+    <string name="logout">Logout</string>
+    <string name="logout_form_this_application">Logout form this application</string>
+    <string name="approve_users">Approve Users</string>
+    <string name="approve_pending_users">Approve Pending Users</string>
+    <string name="search_users">Search Users</string>
+    <string name="search_users_using_data_fields">Search Users using data fields</string>
+    <string name="user_data">User Data</string>
+    <string name="show_and_edit_user_data">Show and edit User Data</string>
 </resources>
