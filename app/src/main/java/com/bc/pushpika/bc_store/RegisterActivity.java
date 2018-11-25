@@ -1,5 +1,6 @@
 package com.bc.pushpika.bc_store;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,7 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText emailField, passwordField, verifyPasswordField;
     Vibrator vibrator;
     FirebaseAuth firebaseAuth;
-
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +43,17 @@ public class RegisterActivity extends AppCompatActivity {
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        progressDialog = new ProgressDialog(this);
     }
 
     public void register(View view){
+
+        progressDialog.setMessage("User registration in progress ......");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
         if(!validateData()){
+            progressDialog.dismiss();
             return;
         }
          registerUser();
@@ -63,10 +71,12 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             doAfterRegistration();
+                            progressDialog.dismiss();
                             startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                             finish();
                         }
                         else{
+                            progressDialog.dismiss();
                             vibrator.vibrate(100);
                             Toast.makeText(getApplicationContext(),"Registration failed"+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                             Log.d("login error:",task.getException().getMessage());

@@ -2,11 +2,13 @@ package com.bc.pushpika.bc_store;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -76,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
 //            startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
             checkUserStateAndStartActivity();
         }
+        progressDialog.dismiss();
 //        else{
 //            if(progressDialog.isShowing())progressDialog.dismiss();
 //
@@ -139,8 +142,72 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
         }
         else{
-            finish();
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("UserStatus");
+
+            myRef.child(userId).child("isUserVerified").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    progressDialog.setMessage("Permission checking......");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+
+                    String isVerified = "false";
+                    try {
+                        if (dataSnapshot.getValue() != null) {
+                            try {
+                                Log.e("TAG", "" + dataSnapshot.getValue()); // your name values you will get here
+                                isVerified = dataSnapshot.getValue().toString();
+                            } catch (Exception e) {
+                              //  e.printStackTrace();
+                            }
+                        } else {
+                            //Log.e("TAG", " it's null.");
+                        }
+                    } catch (Exception e) {
+                        //e.printStackTrace();
+                    }
+
+                    progressDialog.dismiss();
+
+                    if(isVerified.equals("false")){
+
+                            //add dialog box to show request pending state
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
+                        alertDialogBuilder.setMessage("You cannot proceed this action until you confirmed" +
+                                ". If you want, you can add your details again. Do you want to go details page");
+                        alertDialogBuilder.setPositiveButton("yes",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface arg0, int arg1) {
+                                        startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
+                                    }
+                                });
+
+                        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //do nothing
+                            }
+                        });
+
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+
+                        }
+                        else{
+                          finish();
+                          startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         }
     }
 

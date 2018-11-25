@@ -1,5 +1,6 @@
 package com.bc.pushpika.bc_store;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.CountDownTimer;
@@ -38,6 +39,7 @@ public class PendingRecyclerAdapter extends RecyclerView.Adapter<PendingRecycler
     private List<FullDetail> itemList;
     private Context context;
     private final int COUNTDOWN_RUNNING_TIME = 500;
+    private ProgressDialog progressDialog;
 
     public PendingRecyclerAdapter(Context context, Animation animationUp, Animation animationDown) {
 
@@ -48,6 +50,8 @@ public class PendingRecyclerAdapter extends RecyclerView.Adapter<PendingRecycler
         this.animationDown = animationDown;
         this.animationUp = animationUp;
         this.context = context;
+
+        progressDialog = new ProgressDialog(this.context);
     }
 
     private void getDataFromDB() {
@@ -57,6 +61,11 @@ public class PendingRecyclerAdapter extends RecyclerView.Adapter<PendingRecycler
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                progressDialog.setMessage("Data loading......");
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+
                 itemList.clear();
                 for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
 
@@ -71,12 +80,13 @@ public class PendingRecyclerAdapter extends RecyclerView.Adapter<PendingRecycler
                         OccupationalDetail occupationalDetail = messageSnapshot.child("occupationalDetails").getValue(OccupationalDetail.class);
 
                         itemList.add(new FullDetail(personalDetail,occupationalDetail,educationalDetail,
-                                isVerified,dataSnapshot.getKey()));
+                                isVerified,messageSnapshot.getKey()));
                     }
 
                 }
 
                 PendingRecyclerAdapter.super.notifyDataSetChanged();
+                progressDialog.dismiss();
             }
 
             @Override
@@ -99,8 +109,10 @@ public class PendingRecyclerAdapter extends RecyclerView.Adapter<PendingRecycler
         //set relevant holder data
         if(position >= itemList.size()) return;
 
+        final String requesterId = itemList.get(position).getUserID();
+
         holder.title.setText(itemList.get(position).getPersonalDetail().getName());
-        holder.id.setText(itemList.get(position).getUserID());
+        holder.id.setText(requesterId);
 
         holder.personalDataCard.setText(Html.fromHtml((itemList.get(position)).getPersonalDetail().AllPersonalDataText()));
         holder.educationalDataCard.setText(Html.fromHtml((itemList.get(position)).getEducationalDetail().AllEducationalDataText()));
@@ -120,8 +132,8 @@ public class PendingRecyclerAdapter extends RecyclerView.Adapter<PendingRecycler
                                         DatabaseReference myRef1 = database.getReference("UserData");
                                         DatabaseReference myRef2 = database.getReference("UserStatus");
 
-                                        DatabaseReference ref1 = myRef1.child(LoginActivity.userId).child("isUserVerified");
-                                        DatabaseReference ref2 = myRef1.child(LoginActivity.userId).child("isUserVerified");
+                                        DatabaseReference ref1 = myRef1.child(requesterId).child("isUserVerified");
+                                        DatabaseReference ref2 = myRef2.child(requesterId).child("isUserVerified");
                                         ref1.setValue("true");
                                         ref2.setValue("true");
                                     }

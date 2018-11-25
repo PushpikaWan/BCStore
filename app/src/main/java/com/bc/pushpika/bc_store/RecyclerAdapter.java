@@ -1,5 +1,6 @@
 package com.bc.pushpika.bc_store;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
@@ -40,6 +41,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Reycle
     private Context context;
     private final int COUNTDOWN_RUNNING_TIME = 500;
     private boolean isSearching =false;
+    private ProgressDialog progressDialog;
+    private Spinner spinner;
+    private EditText searchTextField;
 
     public RecyclerAdapter(Context context, Animation animationUp, Animation animationDown,
                            final EditText searchTextField, ImageButton searchButton, final Spinner spinner) {
@@ -52,10 +56,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Reycle
         this.animationDown = animationDown;
         this.animationUp = animationUp;
         this.context = context;
+        this.searchTextField = searchTextField;
+        this.spinner = spinner;
+
+        progressDialog = new ProgressDialog(this.context);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.setMessage("Searching Data......");
+                progressDialog.setCancelable(false);
+                progressDialog.show();
                 isSearching = true;
                 searchData(spinner.getSelectedItem().toString(),searchTextField.getText().toString());
             }
@@ -88,6 +99,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Reycle
         RecyclerAdapter.super.notifyDataSetChanged();
 
         isSearching = false;
+
+        progressDialog.dismiss();
     }
 
     private void getDataFromDB() {
@@ -101,6 +114,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Reycle
                 if(isSearching){
                     return;
                 }
+                progressDialog.setMessage("Searching data......");
+                progressDialog.setCancelable(false);
                 itemList.clear();
                 for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
 
@@ -114,7 +129,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Reycle
                 }
 
 //refresh occur when search clicked
-    //            RecyclerAdapter.super.notifyDataSetChanged();
+//                RecyclerAdapter.super.notifyDataSetChanged();
+                searchData(spinner.getSelectedItem().toString(),searchTextField.getText().toString());
             }
 
             @Override

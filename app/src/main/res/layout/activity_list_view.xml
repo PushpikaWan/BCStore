@@ -86,6 +86,7 @@
                             android:src="@drawable/ic_search_24dp"
                             android:paddingLeft="@dimen/activity_horizontal_margin"
                             android:paddingRight="@dimen/activity_horizontal_margin"
+                            android:paddingBottom="@dimen/activity_horizontal_margin"
                             android:scaleType="fitCenter"
                             android:background="@color/colorAccent"
                             android:clickable="true"
@@ -97,6 +98,7 @@
 
             </LinearLayout>
             <LinearLayout
+                android:paddingTop="@dimen/activity_horizontal_margin"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
