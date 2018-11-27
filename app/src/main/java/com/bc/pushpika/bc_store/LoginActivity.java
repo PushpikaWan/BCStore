@@ -69,9 +69,11 @@ public class LoginActivity extends AppCompatActivity {
     private void checkUserLoggedIn() {
 
         //FirebaseAuth.getInstance().signOut();
-        progressDialog.setMessage("loading ......");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+        if(!progressDialog.isShowing()){
+            progressDialog.setMessage("loading ......");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        }
 
         if(firebaseAuth.getCurrentUser()!=null){
 
@@ -135,80 +137,89 @@ public class LoginActivity extends AppCompatActivity {
 
     private void nevigateToNextPageAfterCheckAdmin() {
 
-        SharedPreferences prefs = getSharedPreferences("MY_PREF", MODE_PRIVATE);
+        final SharedPreferences prefs = getSharedPreferences("MY_PREF", MODE_PRIVATE);
         progressDialog.dismiss();
-        if(!prefs.getBoolean("isDataSubmitted", false)){
-            finish();
-            startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
-        }
-        else{
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("UserStatus");
+//        if(!prefs.getBoolean("isDataSubmitted", false)){
+//            finish();
+//            startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
+//        }
+//        else{
+//
+//        }
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("UserStatus");
 
-            myRef.child(userId).child("isUserVerified").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+        myRef.child(userId).child("isUserVerified").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    progressDialog.setMessage("Permission checking......");
+                if(!progressDialog.isShowing()){
+                    progressDialog.setMessage("Permission checking ......");
                     progressDialog.setCancelable(false);
                     progressDialog.show();
+                }
 
-                    String isVerified = "false";
-                    try {
-                        if (dataSnapshot.getValue() != null) {
-                            try {
-                                Log.e("TAG", "" + dataSnapshot.getValue()); // your name values you will get here
-                                isVerified = dataSnapshot.getValue().toString();
-                            } catch (Exception e) {
-                              //  e.printStackTrace();
-                            }
-                        } else {
-                            //Log.e("TAG", " it's null.");
+                String isVerified = "false";
+                try {
+                    if (dataSnapshot.getValue() != null) {
+                        try {
+                            Log.e("TAG", "" + dataSnapshot.getValue()); // your name values you will get here
+                            isVerified = dataSnapshot.getValue().toString();
+                        } catch (Exception e) {
+                            //  e.printStackTrace();
                         }
-                    } catch (Exception e) {
-                        //e.printStackTrace();
+                    } else {
+                        //Log.e("TAG", " it's null.");
                     }
-
-                    progressDialog.dismiss();
-
-                    if(isVerified.equals("false")){
-
-                            //add dialog box to show request pending state
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
-                        alertDialogBuilder.setMessage("You cannot proceed this action until you confirmed" +
-                                ". If you want, you can add your details again. Do you want to go details page");
-                        alertDialogBuilder.setPositiveButton("yes",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface arg0, int arg1) {
-                                        startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
-                                    }
-                                });
-
-                        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //do nothing
-                            }
-                        });
-
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-                        alertDialog.show();
-
-                        }
-                        else{
-                          finish();
-                          startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                        }
-
+                } catch (Exception e) {
+                    //e.printStackTrace();
                 }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+                progressDialog.dismiss();
+
+                if(isVerified.equals("false")){
+
+//                    if(!prefs.getBoolean("isDataSubmitted", false)){
+//                        finish();
+//                        startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
+//                    }
+
+                    //add dialog box to show request pending state
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
+                    alertDialogBuilder.setMessage("Your request is not confirmed yet." +
+                            ". Please, add your details (if you haven't added). Do you want to go details page to add data");
+                    alertDialogBuilder.setPositiveButton("yes",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    finish();
+                                    startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
+                                }
+                            });
+
+                    alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //do nothing
+                        }
+                    });
+
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
 
                 }
-            });
-        }
+                else{
+                    finish();
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void goRegistration(View view){
@@ -229,6 +240,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser() {
+
+        progressDialog.setMessage("loading ......");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         //first getting the values
         final String emailAddress = emailField.getText().toString();
