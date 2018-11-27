@@ -78,7 +78,7 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <!-- dob Label -->
+            <!-- Id number Label -->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,10 +86,34 @@
                 android:textColorHint="#fff"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
+                <EditText android:id="@+id/personalIDNumberField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textColor="#fff"
+                    android:textColorHint="#fff"
+                    android:hint="@string/id_number"
+                    android:maxLength="10"
+                    android:drawablePadding="12dp"
+                    android:padding="16dp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- dob Label -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
                 <EditText android:id="@+id/personalDOBField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="date"
+                    android:inputType="none"
+                    android:focusable="false"
                     android:textColor="#fff"
                     android:textColorHint="#fff"
                     android:hint="@string/date_of_birth"
@@ -135,6 +159,7 @@
                     android:hint="@string/mobile"
                     android:inputType="phone"
                     android:drawablePadding="12dp"
+                    android:maxLength="10"
                     android:padding="16dp"/>
 
             </android.support.design.widget.TextInputLayout>
@@ -150,6 +175,7 @@
                 <EditText android:id="@+id/personalHomeField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLength="10"
                     android:textColor="#fff"
                     android:textColorHint="#fff"
                     android:hint="@string/home"
@@ -159,7 +185,7 @@
 
             </android.support.design.widget.TextInputLayout>
 
-    <!-- spinner -->        <!-- married Label -->
+    <!-- radio button -->        <!-- married Label -->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -167,15 +193,25 @@
                 android:textColorHint="#fff"
                 android:textColor="#fff"
                 android:layout_marginBottom="8dp">
-                <EditText android:id="@+id/personalMarriedField"
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
                     android:textColorHint="#fff"
                     android:hint="@string/married"
                     android:textColor="#fff"
                     android:drawablePadding="12dp"
                     android:padding="16dp"/>
+
+                <Spinner
+                    android:id="@+id/personalMarriedField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:entries="@array/married_fields"
+                    style="@style/mySpinnerItemStyle"
+                    android:drawablePadding="12dp"
+                    android:padding="16dp" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -207,30 +243,44 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
-                <EditText android:id="@+id/educationalStreamField"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#fff"
-                    android:inputType="textPersonName"
                     android:textColorHint="#fff"
-                    android:hint="A/L Stream"
+                    android:hint="@string/a_l_stream"
                     android:drawablePadding="12dp"
                     android:padding="16dp" />
+                <Spinner
+                    android:id="@+id/educationalStreamField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:entries="@array/stream_fields"
+                    style="@style/mySpinnerItemStyle"
+                    android:drawablePadding="12dp"
+                    android:padding="16dp" />
+
+                    <!--android:prompt="@string/country_prompt" />-->
             </android.support.design.widget.TextInputLayout>
 
             <!-- Start date Label -->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="none"
+                android:focusable="false"
                 android:textColor="#fff"
+                android:textColorHint="#fff"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText android:id="@+id/educationalStartDateField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:focusable="false"
                     android:textColor="#fff"
-                    android:inputType="date"
                     android:textColorHint="#fff"
                     android:hint="@string/start_date"
                     android:drawablePadding="12dp"
@@ -241,6 +291,8 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="none"
+                android:focusable="false"
                 android:textColor="#fff"
                 android:textColorHint="#fff"
                 android:layout_marginTop="8dp"
@@ -249,8 +301,9 @@
                 <EditText android:id="@+id/educationalEndDateField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:focusable="false"
                     android:textColor="#fff"
-                    android:inputType="date"
                     android:textColorHint="#fff"
                     android:hint="@string/end_date"
                     android:drawablePadding="12dp"
@@ -338,7 +391,7 @@
                     android:padding="16dp" />
             </android.support.design.widget.TextInputLayout>
 
-            <!-- Job title Label -->
+        <!-- spinner -->    <!-- Job title Label -->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -347,15 +400,24 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
-                <EditText android:id="@+id/occupationalJobTitleField"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#fff"
-                    android:inputType="textPersonName"
                     android:textColorHint="#fff"
-                    android:hint="@string/job_title"
+                    android:text="@string/job_title"
                     android:drawablePadding="12dp"
                     android:padding="16dp" />
+                <Spinner
+                    android:id="@+id/occupationalJobTitleField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:entries="@array/jobTitle_fields"
+                    style="@style/mySpinnerItemStyle"
+                    android:drawablePadding="12dp"
+                    android:padding="16dp" />
+
             </android.support.design.widget.TextInputLayout>
 
             <!-- Phone Label -->
@@ -371,6 +433,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#fff"
+                    android:maxLength="10"
                     android:inputType="phone"
                     android:textColorHint="#fff"
                     android:hint="@string/company_phone"
@@ -382,6 +445,8 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="none"
+                android:focusable="false"
                 android:textColor="#fff"
                 android:textColorHint="#fff"
                 android:layout_marginTop="8dp"
@@ -390,8 +455,9 @@
                 <EditText android:id="@+id/occupationalStartDateField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:focusable="false"
                     android:textColor="#fff"
-                    android:inputType="date"
                     android:textColorHint="#fff"
                     android:hint="@string/job_start_date"
                     android:drawablePadding="12dp"

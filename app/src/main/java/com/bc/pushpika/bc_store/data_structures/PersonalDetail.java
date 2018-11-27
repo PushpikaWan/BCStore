@@ -7,6 +7,8 @@ public class PersonalDetail {
 
     private String address = "";
     private String dOB = "";
+
+    private String idNumber = "";
     private String emailAddress = "";
     private String home = "";
     private String married = "";
@@ -17,9 +19,10 @@ public class PersonalDetail {
 
     }
 
-    public PersonalDetail(String address, String dOB, String emailAddress, String home, String married, String mobile, String name) {
+    public PersonalDetail(String address, String dOB, String emailAddress,String idNumber, String home, String married, String mobile, String name) {
         this.address = address;
         this.dOB = dOB;
+        this.idNumber = idNumber;
         this.emailAddress = emailAddress;
         this.home = home;
         this.married = married;
@@ -83,10 +86,20 @@ public class PersonalDetail {
         this.name = name;
     }
 
+    public String getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
+    }
+
+
     public String AllPersonalDataText(){
 
         return "<B> Name </B> - "+ this.name +"<br>"+
                 "<B> Address </B> - "+ this.address +"<br>"+
+                "<B> ID number </B> - "+ this.idNumber +"<br>"+
                 "<B> DOB </B> - "+ this.dOB +"<br>"+
                 "<B> EmailAddress </B> - "+ this.emailAddress +"<br>"+
                 "<B> Mobile </B> - "+ this.mobile +"<br>"+

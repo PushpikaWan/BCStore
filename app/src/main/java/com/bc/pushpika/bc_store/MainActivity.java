@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void userData(View view){
-
+        startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
     }
 
     public void searchUsers(View view){

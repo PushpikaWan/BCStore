@@ -97,6 +97,7 @@ public class RegisterActivity extends AppCompatActivity {
             editor.apply();
 
             addInitialDataToDB(firebaseUser.getUid());
+            FirebaseAuth.getInstance().signOut();
         }
         else{
             vibrator.vibrate(100);
@@ -110,8 +111,8 @@ public class RegisterActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("UserStatus");
 
-        DatabaseReference ref = myRef.child(uid).child("isUserVerified");
-        ref.setValue("false");
+        myRef.child(uid).child("isUserVerified").setValue("false");
+        myRef.child(uid).child("isDataSubmitted").setValue("false");
     }
 
     private boolean validateData() {

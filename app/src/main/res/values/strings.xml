@@ -36,12 +36,36 @@
     <string name="user_data">User Data</string>
     <string name="show_and_edit_user_data">Show and edit User Data</string>
     <string name="search_text">search text</string>
+    <string name="id_number">ID number</string>
+    <string name="a_l_stream">A/L Stream</string>
 
     <string-array name="search_fields">
         <item>Name</item>
         <item>Address</item>
         <item>A/L Stream</item>
         <item>Company Name</item>
+    </string-array>
+
+    <string-array name="married_fields">
+        <item>select state</item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="stream_fields">
+        <item>select field</item>
+        <item>Bio</item>
+        <item>Maths</item>
+        <item>Commerce</item>
+        <item>Art</item>
+    </string-array>
+
+    <string-array name="jobTitle_fields">
+        <item>select job title</item>
+        <item>Doctor</item>
+        <item>Engineer</item>
+        <item>Businessmen</item>
+        <item>Other</item>
     </string-array>
 
 </resources>

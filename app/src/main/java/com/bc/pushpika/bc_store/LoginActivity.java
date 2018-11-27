@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
 
-        checkUserLoggedIn();
+//        checkUserLoggedIn();
 
     }
 
@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("UserStatus");
 
-        myRef.child(userId).child("isUserVerified").addValueEventListener(new ValueEventListener() {
+        myRef.child(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -159,12 +159,37 @@ public class LoginActivity extends AppCompatActivity {
                     progressDialog.show();
                 }
 
-                String isVerified = "false";
+                String isDataSubmitted = "false";
+
                 try {
-                    if (dataSnapshot.getValue() != null) {
+                    if (dataSnapshot.child("isDataSubmitted").getValue() != null) {
                         try {
                             Log.e("TAG", "" + dataSnapshot.getValue()); // your name values you will get here
-                            isVerified = dataSnapshot.getValue().toString();
+                            isDataSubmitted = dataSnapshot.child("isDataSubmitted").getValue().toString();
+                        } catch (Exception e) {
+                            //  e.printStackTrace();
+                        }
+                    } else {
+                        //Log.e("TAG", " it's null.");
+                    }
+                } catch (Exception e) {
+                    //e.printStackTrace();
+                }
+
+                if(isDataSubmitted.equals("false")){
+
+                    progressDialog.dismiss();
+                    finish();
+                    startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
+                }
+
+
+                String isVerified = "false";
+                try {
+                    if (dataSnapshot.child("isUserVerified").getValue() != null) {
+                        try {
+                            Log.e("TAG", "" + dataSnapshot.getValue()); // your name values you will get here
+                            isVerified = dataSnapshot.child("isUserVerified").getValue().toString();
                         } catch (Exception e) {
                             //  e.printStackTrace();
                         }
@@ -187,7 +212,7 @@ public class LoginActivity extends AppCompatActivity {
                     //add dialog box to show request pending state
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
                     alertDialogBuilder.setMessage("Your request is not confirmed yet." +
-                            ". Please, add your details (if you haven't added). Do you want to go details page to add data");
+                            ". Do you want to change your added details ? ");
                     alertDialogBuilder.setPositiveButton("yes",
                             new DialogInterface.OnClickListener() {
                                 @Override
