@@ -139,7 +139,7 @@
                     android:inputType="textEmailAddress"
                     android:drawablePadding="12dp"
                     android:padding="16dp"
-                   />
+                    />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -185,7 +185,7 @@
 
             </android.support.design.widget.TextInputLayout>
 
-    <!-- radio button -->        <!-- married Label -->
+            <!-- radio button -->        <!-- married Label -->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -242,10 +242,10 @@
 
 
             <!--<View-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="1dp"-->
-                <!--android:padding="32dp"-->
-                <!--android:background="@android:color/darker_gray"/>-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:padding="32dp"-->
+            <!--android:background="@android:color/darker_gray"/>-->
 
             <!-- educational data -->
 
@@ -287,7 +287,7 @@
                     android:drawablePadding="12dp"
                     android:padding="16dp" />
 
-                    <!--android:prompt="@string/country_prompt" />-->
+                <!--android:prompt="@string/country_prompt" />-->
             </android.support.design.widget.TextInputLayout>
 
             <!-- Higher studies Label -->
@@ -377,10 +377,10 @@
 
 
             <!--<View-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="1dp"-->
-                <!--android:padding="32dp"-->
-                <!--android:background="@android:color/darker_gray"/>-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:padding="32dp"-->
+            <!--android:background="@android:color/darker_gray"/>-->
 
             <!-- occupational data -->
 
@@ -435,7 +435,7 @@
                     android:padding="16dp" />
             </android.support.design.widget.TextInputLayout>
 
-        <!-- spinner -->    <!-- Job title Label -->
+            <!-- spinner -->    <!-- Job title Label -->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -513,9 +513,11 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/submitButton"
                 android:background="@color/colorAccentSecond"
                 android:text="@string/submit"
                 android:onClick="submitData"
+                android:visibility="gone"
                 style="@style/Base.TextAppearance.AppCompat.Body1"
                 android:textColor="@color/white"
                 android:textAllCaps="false"

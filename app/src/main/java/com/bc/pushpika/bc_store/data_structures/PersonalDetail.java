@@ -104,7 +104,7 @@ public class PersonalDetail {
                 "<B> Mobile </B> - "+ this.mobile +"<br>"+
                 "<B> Home </B> - "+ this.home +"<br>"+
                 "<B> Married </B> - "+ this.married +"<br>";
-        if(this.married.equals("yes")){
+        if(this.married.equalsIgnoreCase("yes")){
             result += "<B> Number of children </B> - "+ this.numberOfChildren +"<br>";
         }
         return result;

@@ -9,16 +9,10 @@
     android:id="@+id/occupationalDataCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
     android:drawablePadding="5dp"
     android:padding="5dp"
-    android:text="fsdfsdfsdfsdfsdfsdfs \n efsfdsdfsdf \n sdfsdfsdfsdfs \n  \n efsfdsdfsdf \n
-    sdfsdfsdfsdfs \n   \n efsfdsdfsdf \n sdfsdfsdfsdfs \n   \n efsfdsdfsdf \n sdfsdfsdfsdfs \n
-    sdfsdfsdfsdfs \n   \n efsfdsdfsdf \n sdfsdfsdfsdfs \n   \n efsfdsdfsdf \n sdfsdfsdfsdfs \n
-    sdfsdfsdfsdfs \n   \n efsfdsdfsdf \n sdfsdfsdfsdfs \n   \n efsfdsdfsdf \n sdfsdfsdfsdfs \n
-    sdfsdfsdfsdfs \n   \n efsfdsdfsdf \n sdfsdfsdfsdfs \n   \n efsfdsdfsdf \n sdfsdfsdfsdfs \n
-    sdfsdfsdfsdfs \n   \n efsfdsdfsdf \n sdfsdfsdfsdfs \n   \n efsfdsdfsdf \n sdfsdfsdfsdfs \n "
-    android:textColor="@android:color/white"
+    android:text=""
+    android:textColor="@color/colorPrimaryTextColor"
     android:textStyle="bold"/>
 
 </RelativeLayout>

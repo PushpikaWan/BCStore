@@ -3,15 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginBottom="6dp"
-    android:background="@color/colorPrimaryDark">
+    android:layout_marginBottom="6dp">
 
     <com.alespero.expandablecardview.ExpandableCardView
         android:id="@+id/profile"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         app:title="Passengers"
-        app:icon="@drawable/ic_person"
+        app:icon="@drawable/ic_person_accent2_24dp"
         app:inner_view="@layout/exapnadable_card_view"
         app:expandOnClick="true"
         app:animationDuration="300"
