@@ -39,6 +39,7 @@
     <string name="id_number">ID number</string>
     <string name="a_l_stream">A/L Stream</string>
     <string name="index_number">Index number</string>
+    <string name="number_of_children">Number of children</string>
 
     <string-array name="search_fields">
         <item>Name</item>

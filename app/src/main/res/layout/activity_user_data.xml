@@ -203,17 +203,43 @@
                     android:drawablePadding="12dp"
                     android:padding="16dp"/>
 
-                <Spinner
+                <Switch
                     android:id="@+id/personalMarriedField"
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
-                    android:entries="@array/married_fields"
-                    style="@style/mySpinnerItemStyle"
+                    android:text="@string/married"
+                    android:textColor="#fff"
                     android:drawablePadding="12dp"
-                    android:padding="16dp" />
+                    android:padding="16dp"
+                    android:checked="false"
+                    android:gravity="left"/>
 
             </android.support.design.widget.TextInputLayout>
+
+            <!-- number of children -->
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/personalNumberOfChildrenView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+                <EditText android:id="@+id/personalNumberOfChildren"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:textColorHint="#fff"
+                    android:hint="@string/number_of_children"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:drawablePadding="12dp"
+                    android:padding="16dp" />
+            </android.support.design.widget.TextInputLayout>
+
 
             <!--<View-->
                 <!--android:layout_width="match_parent"-->

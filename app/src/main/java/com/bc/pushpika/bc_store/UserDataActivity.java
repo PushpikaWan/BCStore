@@ -6,12 +6,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Vibrator;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +30,7 @@ import java.util.Calendar;
 public class UserDataActivity extends AppCompatActivity {
 
     EditText personalNameField,personalAddressField,personalDOBField,personalIDNumberField;
-    EditText personalEmailField,personalMobileField,personalHomeField;
+    EditText personalEmailField,personalMobileField,personalHomeField,personalNumberOfChildren;
 
     EditText educationalStartDateField, educationalIndexNumberField;
     EditText educationalEndDateField,educationalHigherStudiesField;
@@ -35,7 +38,10 @@ public class UserDataActivity extends AppCompatActivity {
     EditText occupationalCompanyNameField,occupationalCompanyAddressField;
     EditText occupationalPhoneField,occupationalStartDateField;
 
-    Spinner educationalStreamField,personalMarriedField,occupationalJobTitleField;
+    Spinner educationalStreamField,occupationalJobTitleField;
+    TextInputLayout personalNumberOfChildrenView;
+
+    Switch personalMarriedField;
 
     Vibrator vibrator;
 
@@ -54,6 +60,8 @@ public class UserDataActivity extends AppCompatActivity {
         personalMobileField = findViewById(R.id.personalMobileField);
         personalHomeField = findViewById(R.id.personalHomeField);
         personalMarriedField = findViewById(R.id.personalMarriedField);
+        personalNumberOfChildren = findViewById(R.id.personalNumberOfChildren);
+        personalNumberOfChildrenView = findViewById(R.id.personalNumberOfChildrenView);
 
         educationalStreamField = findViewById(R.id.educationalStreamField);
         educationalIndexNumberField = findViewById(R.id.educationalIndexNumberField);
@@ -76,6 +84,19 @@ public class UserDataActivity extends AppCompatActivity {
         personalEmailField.setText(LoginActivity.userEmail);
         personalEmailField.setEnabled(false);
         personalEmailField.setFocusable(false);
+
+        personalNumberOfChildrenView.setVisibility(View.GONE);
+
+        personalMarriedField.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+               if(isChecked){
+                   personalNumberOfChildrenView.setVisibility(View.VISIBLE);
+               }
+               else{
+                   personalNumberOfChildrenView.setVisibility(View.GONE);
+               }
+            }
+        });
     }
 
     private void setDataPickerListener(final EditText editText){
@@ -203,7 +224,8 @@ public class UserDataActivity extends AppCompatActivity {
         personalDetail.setEmailAddress(personalEmailField.getText().toString().trim());
         personalDetail.setMobile(personalMobileField.getText().toString().trim());
         personalDetail.setHome(personalHomeField.getText().toString().trim());
-        personalDetail.setMarried(personalMarriedField.getSelectedItem().toString().trim());
+        personalDetail.setMarried(personalMarriedField.isChecked()? "yes":"No");
+        personalDetail.setNumberOfChildren(personalNumberOfChildren.getText().toString().trim());
 
         return personalDetail;
     }
@@ -216,8 +238,7 @@ public class UserDataActivity extends AppCompatActivity {
         //occupationalPhoneField,educationalHigherStudiesField
 
         //add spinner validation
-        if(!isNotValidStateSelected(personalMarriedField) ||
-                !isNotValidStateSelected(educationalStreamField)){
+        if(!isNotValidStateSelected(educationalStreamField)){
             return false;
         }
 

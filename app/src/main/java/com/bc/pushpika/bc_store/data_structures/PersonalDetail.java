@@ -15,19 +15,18 @@ public class PersonalDetail {
     private String mobile = "";
     private String name = "";
 
+    private String numberOfChildren = "";
+
     public PersonalDetail() {
 
     }
 
-    public PersonalDetail(String address, String dOB, String emailAddress,String idNumber, String home, String married, String mobile, String name) {
-        this.address = address;
-        this.dOB = dOB;
-        this.idNumber = idNumber;
-        this.emailAddress = emailAddress;
-        this.home = home;
-        this.married = married;
-        this.mobile = mobile;
-        this.name = name;
+    public String getNumberOfChildren() {
+        return numberOfChildren;
+    }
+
+    public void setNumberOfChildren(String numberOfChildren) {
+        this.numberOfChildren = numberOfChildren;
     }
 
     public String getAddress() {
@@ -97,7 +96,7 @@ public class PersonalDetail {
 
     public String AllPersonalDataText(){
 
-        return "<B> Name </B> - "+ this.name +"<br>"+
+        String result =  "<B> Name </B> - "+ this.name +"<br>"+
                 "<B> Address </B> - "+ this.address +"<br>"+
                 "<B> ID number </B> - "+ this.idNumber +"<br>"+
                 "<B> DOB </B> - "+ this.dOB +"<br>"+
@@ -105,6 +104,10 @@ public class PersonalDetail {
                 "<B> Mobile </B> - "+ this.mobile +"<br>"+
                 "<B> Home </B> - "+ this.home +"<br>"+
                 "<B> Married </B> - "+ this.married +"<br>";
+        if(this.married.equals("yes")){
+            result += "<B> Number of children </B> - "+ this.numberOfChildren +"<br>";
+        }
+        return result;
     }
 
 }
