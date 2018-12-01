@@ -59,7 +59,7 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:text="@string/approve"
-        android:background="@color/colorAccent"
+        android:background="@drawable/accent1_button_background"
         android:onClick="goRegistration"
         style="@style/Base.TextAppearance.AppCompat.Body1"
         android:textColor="#fff"

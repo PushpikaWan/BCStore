@@ -259,7 +259,14 @@ public class LoginActivity extends AppCompatActivity {
 
     public void login(View view){
 
+        progressDialog.setMessage("loading ......");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
         if(!validateData()){
+            if(progressDialog.isShowing()){
+                progressDialog.dismiss();
+            }
             return;
         }
 
