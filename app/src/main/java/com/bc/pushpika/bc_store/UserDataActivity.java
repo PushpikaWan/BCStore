@@ -29,7 +29,7 @@ public class UserDataActivity extends AppCompatActivity {
     EditText personalNameField,personalAddressField,personalDOBField,personalIDNumberField;
     EditText personalEmailField,personalMobileField,personalHomeField;
 
-    EditText educationalStartDateField;
+    EditText educationalStartDateField, educationalIndexNumberField;
     EditText educationalEndDateField,educationalHigherStudiesField;
 
     EditText occupationalCompanyNameField,occupationalCompanyAddressField;
@@ -56,6 +56,7 @@ public class UserDataActivity extends AppCompatActivity {
         personalMarriedField = findViewById(R.id.personalMarriedField);
 
         educationalStreamField = findViewById(R.id.educationalStreamField);
+        educationalIndexNumberField = findViewById(R.id.educationalIndexNumberField);
         educationalStartDateField = findViewById(R.id.educationalStartDateField);
         educationalEndDateField = findViewById(R.id.educationalEndDateField);
         educationalHigherStudiesField = findViewById(R.id.educationalHigherStudiesField);
@@ -71,10 +72,10 @@ public class UserDataActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
 
         setDataPickerListener(personalDOBField);
-        setDataPickerListener(educationalStartDateField);
-        setDataPickerListener(educationalEndDateField);
-        setDataPickerListener(occupationalStartDateField);
 
+        personalEmailField.setText(LoginActivity.userEmail);
+        personalEmailField.setEnabled(false);
+        personalEmailField.setFocusable(false);
     }
 
     private void setDataPickerListener(final EditText editText){
@@ -88,6 +89,9 @@ public class UserDataActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+
+                personalDOBField.setError(null);
+
                 DatePickerDialog datePickerDialog = new DatePickerDialog(UserDataActivity.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
@@ -168,9 +172,9 @@ public class UserDataActivity extends AppCompatActivity {
 
         occupationalDetail.setCompanyName(occupationalCompanyNameField.getText().toString().trim());
         occupationalDetail.setCompanyAddress(occupationalCompanyAddressField.getText().toString().trim());
-        occupationalDetail.setJobTitle(occupationalJobTitleField.getSelectedItem().toString().trim());
+        occupationalDetail.setJobTitle(occupationalJobTitleField.getSelectedItemId()==0? "":occupationalJobTitleField.getSelectedItem().toString());
         occupationalDetail.setPhone(occupationalPhoneField.getText().toString().trim());
-        occupationalDetail.setStartDate(occupationalStartDateField.getText().toString().trim());
+        occupationalDetail.setStartYear(occupationalStartDateField.getText().toString().trim());
 
         return occupationalDetail;
     }
@@ -180,8 +184,9 @@ public class UserDataActivity extends AppCompatActivity {
         EducationalDetail educationalDetail = new EducationalDetail();
 
         educationalDetail.setStream(educationalStreamField.getSelectedItem().toString().trim());
-        educationalDetail.setStartDate(educationalStartDateField.getText().toString().trim());
-        educationalDetail.setEndDate(educationalEndDateField.getText().toString().trim());
+        educationalDetail.setIndexNumber(educationalIndexNumberField.getText().toString().trim());
+        educationalDetail.setStartYear(educationalStartDateField.getText().toString().trim());
+        educationalDetail.setEndYear(educationalEndDateField.getText().toString().trim());
         educationalDetail.setHigherStudies(educationalHigherStudiesField.getText().toString().trim());
 
         return educationalDetail;
@@ -206,10 +211,22 @@ public class UserDataActivity extends AppCompatActivity {
 
     private boolean validateData() {
 
+        //optional field
+        //educationalIndexNumberField,personalHomeField,occupationalJobTitleField
+        //occupationalPhoneField,educationalHigherStudiesField
+
         //add spinner validation
         if(!isNotValidStateSelected(personalMarriedField) ||
-                !isNotValidStateSelected(educationalStreamField) ||
-                !isNotValidStateSelected(occupationalJobTitleField)){
+                !isNotValidStateSelected(educationalStreamField)){
+            return false;
+        }
+
+        if(!isNotEmptyField(personalNameField) || !isNotEmptyField(personalAddressField) ||
+                !isNotEmptyField(personalDOBField)){
+            return false;
+        }
+
+        if(!isNotEmptyField(occupationalCompanyNameField) || !isNotEmptyField(occupationalCompanyAddressField)){
             return false;
         }
 
@@ -218,18 +235,8 @@ public class UserDataActivity extends AppCompatActivity {
             return false;
         }
 
-        if( !isNotEmptyField(educationalStartDateField) ||
-                !isNotEmptyField(educationalEndDateField) ||!isNotEmptyField(educationalHigherStudiesField)){
-            return false;
-        }
-
-        if(!isNotEmptyField(occupationalCompanyNameField) || !isNotEmptyField(occupationalCompanyAddressField) ||
-                 !isNotEmptyField(occupationalStartDateField)){
-            return false;
-        }
-
-        if(!isNotEmptyField(personalNameField) || !isNotEmptyField(personalAddressField) ||
-                !isNotEmptyField(personalDOBField) ||!isNotEmptyField(personalEmailField)){
+        if(!isValidYear(educationalStartDateField) || !isValidYear(occupationalStartDateField) ||
+                !isValidYear(educationalEndDateField)){
             return false;
         }
 
@@ -247,14 +254,16 @@ public class UserDataActivity extends AppCompatActivity {
            return false;
        }
 
-       if(personalHomeField.getText().toString().trim().length() != 10){
+       if(!personalHomeField.getText().toString().trim().isEmpty()
+               && personalHomeField.getText().toString().trim().length() != 10){
             vibrator.vibrate(100);
             personalHomeField.setError("should be 10 character number");
             personalHomeField.requestFocus();
             return false;
         }
 
-        if(occupationalPhoneField.getText().toString().trim().length() != 10){
+        if(!occupationalPhoneField.getText().toString().trim().isEmpty()
+               && occupationalPhoneField.getText().toString().trim().length() != 10){
             vibrator.vibrate(100);
             occupationalPhoneField.setError("should be 10 character number");
             occupationalPhoneField.requestFocus();
@@ -268,6 +277,17 @@ public class UserDataActivity extends AppCompatActivity {
 //       }
 
        return true;
+    }
+
+    private boolean isValidYear(EditText field){
+        if(field.getText().toString().trim().length()== 4){
+            return true;
+        }
+
+        field.setError("Invalid Year");
+        field.requestFocus();
+        vibrator.vibrate(100);
+        return false;
     }
 
     private boolean isNotValidStateSelected(Spinner spinner){

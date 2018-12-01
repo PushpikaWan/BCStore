@@ -215,11 +215,11 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:padding="32dp"
-                android:background="@android:color/darker_gray"/>
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:padding="32dp"-->
+                <!--android:background="@android:color/darker_gray"/>-->
 
             <!-- educational data -->
 
@@ -264,12 +264,31 @@
                     <!--android:prompt="@string/country_prompt" />-->
             </android.support.design.widget.TextInputLayout>
 
+            <!-- Higher studies Label -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+                <EditText android:id="@+id/educationalIndexNumberField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:textColorHint="#fff"
+                    android:hint="@string/index_number"
+                    android:inputType="number"
+                    android:drawablePadding="12dp"
+                    android:padding="16dp" />
+            </android.support.design.widget.TextInputLayout>
+
             <!-- Start date Label -->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none"
-                android:focusable="false"
+                android:inputType="number"
                 android:textColor="#fff"
                 android:textColorHint="#fff"
                 android:layout_marginTop="8dp"
@@ -278,8 +297,8 @@
                 <EditText android:id="@+id/educationalStartDateField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:focusable="false"
+                    android:inputType="number"
+                    android:maxLength="4"
                     android:textColor="#fff"
                     android:textColorHint="#fff"
                     android:hint="@string/start_date"
@@ -291,8 +310,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none"
-                android:focusable="false"
+                android:inputType="number"
                 android:textColor="#fff"
                 android:textColorHint="#fff"
                 android:layout_marginTop="8dp"
@@ -301,8 +319,8 @@
                 <EditText android:id="@+id/educationalEndDateField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:focusable="false"
+                    android:inputType="number"
+                    android:maxLength="4"
                     android:textColor="#fff"
                     android:textColorHint="#fff"
                     android:hint="@string/end_date"
@@ -332,11 +350,11 @@
             </android.support.design.widget.TextInputLayout>
 
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:padding="32dp"
-                android:background="@android:color/darker_gray"/>
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:padding="32dp"-->
+                <!--android:background="@android:color/darker_gray"/>-->
 
             <!-- occupational data -->
 
@@ -445,8 +463,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none"
-                android:focusable="false"
+                android:inputType="number"
                 android:textColor="#fff"
                 android:textColorHint="#fff"
                 android:layout_marginTop="8dp"
@@ -455,9 +472,9 @@
                 <EditText android:id="@+id/occupationalStartDateField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:focusable="false"
+                    android:inputType="number"
                     android:textColor="#fff"
+                    android:maxLength="4"
                     android:textColorHint="#fff"
                     android:hint="@string/job_start_date"
                     android:drawablePadding="12dp"

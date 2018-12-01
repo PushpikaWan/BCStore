@@ -78,16 +78,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Reycle
         searchedList.clear();
 
         for (FullDetail element : itemList) {
-           if(field.equals("Name") && element.getPersonalDetail().getName().contains(text)){
+           if(field.equals("Name") && element.getPersonalDetail().getName().toLowerCase().contains(text.toLowerCase())){
                searchedList.add(element);
            }
-           else if (field.equals("Address") && element.getPersonalDetail().getAddress().contains(text)){
+           else if (field.equals("Address") && element.getPersonalDetail().getAddress().toLowerCase().contains(text.toLowerCase())){
                 searchedList.add(element);
             }
-           else if (field.equals("A/L Stream") && element.getEducationalDetail().getStream().contains(text)){
+           else if (field.equals("A/L Stream") && element.getEducationalDetail().getStream().toLowerCase().contains(text.toLowerCase())){
                searchedList.add(element);
            }
-           else if (field.equals("Company Name") && element.getOccupationalDetail().getCompanyName().contains(text)){
+           else if (field.equals("Company Name") && element.getOccupationalDetail().getCompanyName().toLowerCase().contains(text.toLowerCase())){
                searchedList.add(element);
            }
            //performance issue... else part go with first time

@@ -10,18 +10,9 @@ public class OccupationalDetail {
     private String companyAddress = "";
     private String jobTitle = "";
     private String phone = "";
-    private String startDate = "";
+    private String startYear = "";
 
-    public OccupationalDetail() {
-    }
-
-    public OccupationalDetail(String companyName, String companyAddress, String jobTitle, String phone, String startDate) {
-        this.companyName = companyName;
-        this.companyAddress = companyAddress;
-        this.jobTitle = jobTitle;
-        this.phone = phone;
-        this.startDate = startDate;
-    }
+    public OccupationalDetail() { }
 
     public String getCompanyName() {
         return companyName;
@@ -55,12 +46,12 @@ public class OccupationalDetail {
         this.phone = phone;
     }
 
-    public String getStartDate() {
-        return startDate;
+    public String getStartYear() {
+        return startYear;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
+    public void setStartYear(String startYear) {
+        this.startYear = startYear;
     }
 
     public String AllOccupationalDataText(){
@@ -68,7 +59,7 @@ public class OccupationalDetail {
         return "<B> Company Name </B> - "+ this.companyName +"<br>"+
                 "<B> Company Address </B> - "+ this.companyAddress +"<br>"+
                 "<B> Job Title </B> - "+ this.jobTitle +"<br>"+
-                "<B> Start Date </B> - "+ this.startDate +"<br>"+
+                "<B> Started Year </B> - "+ this.startYear +"<br>"+
                 "<B> Phone </B> - "+ this.phone +"<br>";
     }
 }

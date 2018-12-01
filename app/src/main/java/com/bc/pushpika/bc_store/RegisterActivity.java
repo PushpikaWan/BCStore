@@ -72,7 +72,10 @@ public class RegisterActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             doAfterRegistration();
                             progressDialog.dismiss();
-                            startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+
+                            LoginActivity.userEmail = emailAddress;
+
+                            startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
                             finish();
                         }
                         else{

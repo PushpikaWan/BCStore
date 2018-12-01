@@ -38,6 +38,7 @@
     <string name="search_text">search text</string>
     <string name="id_number">ID number</string>
     <string name="a_l_stream">A/L Stream</string>
+    <string name="index_number">Index number</string>
 
     <string-array name="search_fields">
         <item>Name</item>
@@ -62,9 +63,31 @@
 
     <string-array name="jobTitle_fields">
         <item>select job title</item>
-        <item>Doctor</item>
-        <item>Engineer</item>
-        <item>Businessmen</item>
+        <item>Agriculture</item>
+        <item>Plantation and Livestock</item>
+        <item>Art Design and Media</item>
+        <item>Automobile Repair and Maintenance</item>
+        <item>Building and Construction</item>
+        <item>Electrical, Electronics and Telecommunication</item>
+        <item>Finance Banking and Management</item>
+        <item>Food Technology</item>
+        <item>Gem and Jewellery</item>
+        <item>Heavy Vehicles Operations</item>
+        <item>Hotel and Tourism</item>
+        <item>Human Resource Management</item>
+        <item>Information Communication and Multimedia Technology</item>
+        <item>Languages</item>
+        <item>Leather and Footwear</item>
+        <item>Marine and Nautical Science</item>
+        <item>Mechatronics Technology</item>
+        <item>Medical and Health Science</item>
+        <item>Metal and Light Engineering</item>
+        <item>Office Management</item>
+        <item>Personal and Community Development</item>
+        <item>Printing and Packaging</item>
+        <item>Refrigeration and Air Conditioning</item>
+        <item>Textile and Garment</item>
+        <item>Wood Related</item>
         <item>Other</item>
     </string-array>
 

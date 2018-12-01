@@ -40,8 +40,9 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
 
     //move these two to shared prefereneces
-    public static String userId;
-    public static boolean isAdmin;
+    public static String userId = "";
+    public static String userEmail = "";
+    public static boolean isAdmin = false;
 
     private ProgressDialog progressDialog;
 
@@ -52,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
 
         userId = "";
         isAdmin = false;
+        userEmail = "";
 
         emailField = findViewById(R.id.emailField);
         passwordField = findViewById(R.id.passwordField);
@@ -128,6 +130,7 @@ public class LoginActivity extends AppCompatActivity {
             editor.putString("emailAddress", firebaseUser.getEmail());
 
             userId = firebaseUser.getUid();
+            userEmail = firebaseUser.getEmail();
 
             editor.apply();
         }
@@ -178,7 +181,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(isDataSubmitted.equals("false")){
 
-                    progressDialog.dismiss();
+
                     finish();
                     startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
                 }
@@ -286,12 +289,12 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         else{
                             vibrator.vibrate(100);
-                            Toast.makeText(getApplicationContext(),"E-mail or password is wrong"+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"E-mail or password is wrong"+task.getException().getMessage(),Toast.LENGTH_LONG).show();
                             Log.d("login error:",task.getException().getMessage());
                         }
                     }
                 });
-
+        progressDialog.dismiss();
     }
 
 

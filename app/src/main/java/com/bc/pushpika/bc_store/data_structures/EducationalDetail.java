@@ -5,31 +5,32 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class EducationalDetail {
 
-    private String endDate = "";
+    private String indexNumber = "";
+
+    private String endYear = "";
     private String higherStudies = "";
-    private String startDate = "";
+    private String startYear = "";
     private String stream = "";
 
-
     // Default constructor required for calls to
+
     // DataSnapshot.getValue(EducationalDetail.class)
-    public EducationalDetail() {
+    public EducationalDetail() {}
 
+    public String getIndexNumber() {
+        return indexNumber;
     }
 
-    public EducationalDetail(String endDate, String higherStudies, String startDate, String stream) {
-        this.endDate = endDate;
-        this.higherStudies = higherStudies;
-        this.startDate = startDate;
-        this.stream = stream;
+    public void setIndexNumber(String indexNumber) {
+        this.indexNumber = indexNumber;
     }
 
-    public String getEndDate() {
-        return endDate;
+    public String getEndYear() {
+        return endYear;
     }
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
+    public void setEndYear(String endYear) {
+        this.endYear = endYear;
     }
 
     public String getHigherStudies() {
@@ -40,12 +41,12 @@ public class EducationalDetail {
         this.higherStudies = higherStudies;
     }
 
-    public String getStartDate() {
-        return startDate;
+    public String getStartYear() {
+        return startYear;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
+    public void setStartYear(String startYear) {
+        this.startYear = startYear;
     }
 
     public String getStream() {
@@ -59,8 +60,9 @@ public class EducationalDetail {
     public String AllEducationalDataText(){
 
         return "<B> A/L Stream </B> - "+ this.stream +"<br>"+
-                "<B> Start Date </B> - "+ this.startDate +"<br>"+
-                "<B> End Date </B> - "+ this.endDate +"<br>"+
+                "<B> Index number </B> - "+ this.indexNumber +"<br>"+
+                "<B> Started Year </B> - "+ this.startYear +"<br>"+
+                "<B> End Year </B> - "+ this.endYear +"<br>"+
                 "<B> Higher studies </B> - "+ this.higherStudies +"<br>";
     }
 
