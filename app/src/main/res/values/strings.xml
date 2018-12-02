@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BCInfo</string>
+    <string name="app_name">BC 2002</string>
     <string name="login">Log in</string>
     <string name="desc">description</string>
     <string name="email_here">email here</string>
@@ -19,13 +19,13 @@
     <string name="mobile">Mobile</string>
     <string name="home">Home</string>
     <string name="married">Married</string>
-    <string name="start_date">Start Date</string>
-    <string name="end_date">End Date</string>
+    <string name="start_date">Started Year</string>
+    <string name="end_date">End Year</string>
     <string name="company_name">Company Name</string>
     <string name="company_address">Company Address</string>
     <string name="job_title">Job Title</string>
     <string name="company_phone">Company Phone</string>
-    <string name="job_start_date">Job Start Date</string>
+    <string name="job_start_date">Job Started Year</string>
     <string name="approve">Approve</string>
     <string name="logout">Logout</string>
     <string name="logout_form_this_application">Logout form this application</string>
