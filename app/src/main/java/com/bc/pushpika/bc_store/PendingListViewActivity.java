@@ -29,5 +29,6 @@ public class PendingListViewActivity extends AppCompatActivity {
         PendingRecyclerAdapter pendingRecyclerAdapter = new PendingRecyclerAdapter(this, animationUp, animationDown);
         recyclerView.setAdapter(pendingRecyclerAdapter);
     }
+
 }
 

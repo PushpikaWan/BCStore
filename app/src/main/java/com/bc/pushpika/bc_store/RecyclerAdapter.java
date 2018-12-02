@@ -1,5 +1,6 @@
 package com.bc.pushpika.bc_store;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.CountDownTimer;
@@ -106,16 +107,23 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Reycle
     private void getDataFromDB() {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("UserData");
+        final DatabaseReference myRef = database.getReference("UserData");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                if(((Activity) context).isFinishing())
+                {
+                    myRef.removeEventListener(this);
+                    Log.e("RecycleListenerfirebase","fired and removed");
+                }
+
                 if(isSearching){
                     return;
                 }
-                progressDialog.setMessage("Searching data......");
-                progressDialog.setCancelable(false);
+//                progressDialog.setMessage("Searching data......");
+//                progressDialog.setCancelable(false);
+                Log.e("RecycleListenerfirebase","fired");
                 itemList.clear();
                 for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
 
@@ -123,8 +131,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Reycle
                     EducationalDetail educationalDetail = messageSnapshot.child("educationalDetails").getValue(EducationalDetail.class);
                     OccupationalDetail occupationalDetail = messageSnapshot.child("occupationalDetails").getValue(OccupationalDetail.class);
 
-                    itemList.add(new FullDetail(personalDetail,occupationalDetail,educationalDetail,
-                            "true",dataSnapshot.getKey()));
+                    if(messageSnapshot.child("isUserVerified").getValue()!= null
+                            && messageSnapshot.child("isUserVerified").getValue().toString().equals("true")){
+                        itemList.add(new FullDetail(personalDetail,occupationalDetail,educationalDetail,
+                                "true",dataSnapshot.getKey()));
+                    }
 
                 }
 

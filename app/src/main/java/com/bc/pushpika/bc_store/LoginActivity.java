@@ -1,5 +1,6 @@
 package com.bc.pushpika.bc_store;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -71,24 +72,11 @@ public class LoginActivity extends AppCompatActivity {
     private void checkUserLoggedIn() {
 
         //FirebaseAuth.getInstance().signOut();
-        if(!progressDialog.isShowing()){
-            progressDialog.setMessage("loading ......");
-            progressDialog.setCancelable(false);
-            progressDialog.show();
-        }
 
         if(firebaseAuth.getCurrentUser()!=null){
 
-//            startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
             checkUserStateAndStartActivity();
         }
-        progressDialog.dismiss();
-//        else{
-//            if(progressDialog.isShowing())progressDialog.dismiss();
-//
-//            Toast.makeText(getApplicationContext(),"something went wrong",Toast.LENGTH_SHORT).show();
-//        }
-
     }
 
     private void checkAdminPermissions(){
@@ -141,26 +129,27 @@ public class LoginActivity extends AppCompatActivity {
     private void nevigateToNextPageAfterCheckAdmin() {
 
         final SharedPreferences prefs = getSharedPreferences("MY_PREF", MODE_PRIVATE);
-        progressDialog.dismiss();
-//        if(!prefs.getBoolean("isDataSubmitted", false)){
-//            finish();
-//            startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
-//        }
-//        else{
-//
-//        }
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("UserStatus");
 
-        myRef.child(userId).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference myRef = database.getReference("UserStatus");
+
+        myRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                if(!progressDialog.isShowing()){
-                    progressDialog.setMessage("Permission checking ......");
-                    progressDialog.setCancelable(false);
-                    progressDialog.show();
-                }
+//                if(!progressDialog.isShowing()){
+//                    progressDialog.setMessage("Permission checking ......");
+//                    progressDialog.setCancelable(false);
+//                    progressDialog.show();
+//                }
+//
+//                if(((Activity)getApplicationContext()).isFinishing())
+//                {
+//                    myRef.removeEventListener(this);
+//                    Log.e("Login firebase","fired and removed");
+//                }
+
+                Log.e("Login firebase","fired");
 
                 String isDataSubmitted = "false";
 
@@ -186,59 +175,51 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
                 }
 
-
-                String isVerified = "false";
-                try {
-                    if (dataSnapshot.child("isUserVerified").getValue() != null) {
-                        try {
-                            Log.e("TAG", "" + dataSnapshot.getValue()); // your name values you will get here
-                            isVerified = dataSnapshot.child("isUserVerified").getValue().toString();
-                        } catch (Exception e) {
-                            //  e.printStackTrace();
-                        }
-                    } else {
-                        //Log.e("TAG", " it's null.");
-                    }
-                } catch (Exception e) {
-                    //e.printStackTrace();
-                }
-
-                progressDialog.dismiss();
-
-                if(isVerified.equals("false")){
-
-//                    if(!prefs.getBoolean("isDataSubmitted", false)){
-//                        finish();
-//                        startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
-//                    }
-
-                    //add dialog box to show request pending state
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
-                    alertDialogBuilder.setMessage("Your request is not confirmed yet." +
-                            ". Do you want to change your added details ? ");
-                    alertDialogBuilder.setPositiveButton("yes",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface arg0, int arg1) {
-                                    finish();
-                                    startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
-                                }
-                            });
-
-                    alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            //do nothing
-                        }
-                    });
-
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
-
-                }
                 else{
-                    finish();
-                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    String isVerified = "false";
+                    try {
+                        if (dataSnapshot.child("isUserVerified").getValue() != null) {
+                            try {
+                                Log.e("TAG", "" + dataSnapshot.getValue()); // your name values you will get here
+                                isVerified = dataSnapshot.child("isUserVerified").getValue().toString();
+                            } catch (Exception e) {
+                                //  e.printStackTrace();
+                            }
+                        } else { }
+                    } catch (Exception e) { }
+
+                    if(isVerified.equals("false")){
+
+                        //add dialog box to show request pending state
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
+                        alertDialogBuilder.setMessage("Your request is not confirmed yet." +
+                                ". Do you want to change your added details ? ");
+                        alertDialogBuilder.setPositiveButton("yes",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface arg0, int arg1) {
+                                        finish();
+                                        startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
+                                    }
+                                });
+
+                        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //do nothing
+                            }
+                        });
+
+                        dismissProgressBarIfShowing();
+
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+
+                    }
+                    else{
+                        finish();
+                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    }
                 }
 
             }
@@ -257,6 +238,30 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStop() {
+        dismissProgressBarIfShowing();
+        super.onStop();
+    }
+
+    private void dismissProgressBarIfShowing() {
+        if(progressDialog.isShowing()){
+            progressDialog.dismiss();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        dismissProgressBarIfShowing();
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        dismissProgressBarIfShowing();
+        super.onPause();
+    }
+
     public void login(View view){
 
         progressDialog.setMessage("loading ......");
@@ -264,9 +269,7 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.show();
 
         if(!validateData()){
-            if(progressDialog.isShowing()){
-                progressDialog.dismiss();
-            }
+            dismissProgressBarIfShowing();
             return;
         }
 
@@ -275,10 +278,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser() {
-
-        progressDialog.setMessage("loading ......");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
 
         //first getting the values
         final String emailAddress = emailField.getText().toString();
@@ -291,17 +290,15 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             checkUserLoggedIn();
-//                            startActivity(new Intent(getApplicationContext(),UserDataActivity.class));
-//                            finish();
                         }
                         else{
+                            dismissProgressBarIfShowing();
                             vibrator.vibrate(100);
                             Toast.makeText(getApplicationContext(),"E-mail or password is wrong"+task.getException().getMessage(),Toast.LENGTH_LONG).show();
                             Log.d("login error:",task.getException().getMessage());
                         }
                     }
                 });
-        progressDialog.dismiss();
     }
 
 

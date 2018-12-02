@@ -1,5 +1,6 @@
 package com.bc.pushpika.bc_store;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,15 +59,22 @@ public class PendingRecyclerAdapter extends RecyclerView.Adapter<PendingRecycler
     private void getDataFromDB() {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("UserData");
+        final DatabaseReference myRef = database.getReference("UserData");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                progressDialog.setMessage("Data loading......");
-                progressDialog.setCancelable(false);
-                progressDialog.show();
+                if(((Activity) context).isFinishing())
+                {
+                    myRef.removeEventListener(this);
+                    Log.e("PendinRecyclefirebase","fired and removed");
+                }
 
+//                progressDialog.setMessage("Data loading......");
+//                progressDialog.setCancelable(false);
+//                progressDialog.show();
+
+                Log.e("PendinRecycle Listener","fired");
                 itemList.clear();
                 for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
 
