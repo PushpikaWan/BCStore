@@ -96,7 +96,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         resetButton.setEnabled(false);
         resetButton.setClickable(false);
         resetButton.setBackgroundColor(getResources().getColor(R.color.white));
-        resetButton.setTextColor(getResources().getColor(R.color.colorAccent));
+        resetButton.setTextColor(getResources().getColor(R.color.colorAccentSecond));
         resetButton.setText("Password reset email sent");
     }
 

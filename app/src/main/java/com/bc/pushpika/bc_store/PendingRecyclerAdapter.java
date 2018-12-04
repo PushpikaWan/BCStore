@@ -37,10 +37,8 @@ import java.util.Objects;
 
 public class PendingRecyclerAdapter extends RecyclerView.Adapter<PendingRecyclerAdapter.PendingReyclerViewHolder> {
     private LayoutInflater layoutInflater;
-    private Animation animationUp, animationDown;
     private List<FullDetail> itemList;
     private Context context;
-    private final int COUNTDOWN_RUNNING_TIME = 500;
     private ProgressDialog progressDialog;
 
     public PendingRecyclerAdapter(Context context, Animation animationUp, Animation animationDown) {
@@ -49,8 +47,6 @@ public class PendingRecyclerAdapter extends RecyclerView.Adapter<PendingRecycler
         getDataFromDB();
 
         this.layoutInflater = LayoutInflater.from(context);
-        this.animationDown = animationDown;
-        this.animationUp = animationUp;
         this.context = context;
 
         progressDialog = new ProgressDialog(this.context);
@@ -197,6 +193,7 @@ public class PendingRecyclerAdapter extends RecyclerView.Adapter<PendingRecycler
             personalDataView.setOnExpandedListener(new ExpandableCardView.OnExpandedListener() {
                 @Override
                 public void onExpandChanged(View v, boolean isExpanded) {
+                    if(isExpanded)
                     expandableCardView.expand();
                 }
             });
@@ -204,6 +201,7 @@ public class PendingRecyclerAdapter extends RecyclerView.Adapter<PendingRecycler
             educationalDataView.setOnExpandedListener(new ExpandableCardView.OnExpandedListener() {
                 @Override
                 public void onExpandChanged(View v, boolean isExpanded) {
+                    if(isExpanded)
                     expandableCardView.expand();
                 }
             });
@@ -211,7 +209,19 @@ public class PendingRecyclerAdapter extends RecyclerView.Adapter<PendingRecycler
             occupationalDataView.setOnExpandedListener(new ExpandableCardView.OnExpandedListener() {
                 @Override
                 public void onExpandChanged(View v, boolean isExpanded) {
+                    if(isExpanded)
                     expandableCardView.expand();
+                }
+            });
+
+            expandableCardView.setOnExpandedListener(new ExpandableCardView.OnExpandedListener() {
+                @Override
+                public void onExpandChanged(View v, boolean isExpanded) {
+                    if(!isExpanded){
+                        personalDataView.collapse();
+                        educationalDataView.collapse();
+                        occupationalDataView.collapse();
+                    }
                 }
             });
         }
