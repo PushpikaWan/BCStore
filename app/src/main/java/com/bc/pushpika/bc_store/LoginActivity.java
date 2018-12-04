@@ -238,6 +238,12 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    public void goForgetPassword(View view){
+
+        Intent intent = new Intent(this,ForgetPasswordActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onStop() {
         dismissProgressBarIfShowing();
