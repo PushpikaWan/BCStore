@@ -193,7 +193,6 @@ public class PendingRecyclerAdapter extends RecyclerView.Adapter<PendingRecycler
             personalDataView.setOnExpandedListener(new ExpandableCardView.OnExpandedListener() {
                 @Override
                 public void onExpandChanged(View v, boolean isExpanded) {
-                    if(isExpanded)
                     expandableCardView.expand();
                 }
             });
@@ -201,7 +200,6 @@ public class PendingRecyclerAdapter extends RecyclerView.Adapter<PendingRecycler
             educationalDataView.setOnExpandedListener(new ExpandableCardView.OnExpandedListener() {
                 @Override
                 public void onExpandChanged(View v, boolean isExpanded) {
-                    if(isExpanded)
                     expandableCardView.expand();
                 }
             });
@@ -209,21 +207,10 @@ public class PendingRecyclerAdapter extends RecyclerView.Adapter<PendingRecycler
             occupationalDataView.setOnExpandedListener(new ExpandableCardView.OnExpandedListener() {
                 @Override
                 public void onExpandChanged(View v, boolean isExpanded) {
-                    if(isExpanded)
                     expandableCardView.expand();
                 }
             });
 
-            expandableCardView.setOnExpandedListener(new ExpandableCardView.OnExpandedListener() {
-                @Override
-                public void onExpandChanged(View v, boolean isExpanded) {
-                    if(!isExpanded){
-                        personalDataView.collapse();
-                        educationalDataView.collapse();
-                        occupationalDataView.collapse();
-                    }
-                }
-            });
         }
     }
 }

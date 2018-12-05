@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,8 +12,8 @@
 
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
         <LinearLayout
@@ -512,22 +513,65 @@
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/submitButton"
-                android:background="@color/colorAccentSecond"
-                android:text="@string/submit"
+                android:layout_height="wrap_content"
+                android:background="@drawable/accent1_button_background"
                 android:onClick="submitData"
+                android:text="@string/update_data"
                 android:visibility="gone"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:paddingTop="24dp"
+                android:paddingBottom="24dp"
+                android:padding="16dp"
+                android:clickable="true"
+                style="@style/Base.TextAppearance.AppCompat.Body1"
+                android:layout_marginTop="24dp"
+                android:textSize="18sp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/cancelButton"
+                android:visibility="gone"
+                android:background="@drawable/accent2_button_background"
+                android:onClick="editPage"
+                android:text="@string/cancel"
                 style="@style/Base.TextAppearance.AppCompat.Body1"
                 android:textColor="@color/white"
                 android:textAllCaps="false"
                 android:textSize="18sp"
                 android:layout_marginTop="16dp"
                 android:clickable="true"
+                android:paddingTop="24dp"
+                android:paddingBottom="24dp"
                 android:padding="16dp"
                 android:focusable="true" />
 
         </LinearLayout>
+
     </ScrollView>
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp">
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:onClick="editPage"
+        app:elevation="6dp"
+        app:backgroundTint="@color/colorAccentSecond"
+        app:pressedTranslationZ="12dp"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_edit_white_24dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

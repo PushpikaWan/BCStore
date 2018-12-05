@@ -3,11 +3,14 @@ package com.bc.pushpika.bc_store;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -49,63 +52,67 @@ public class UserDataView extends AppCompatActivity {
     Spinner educationalStreamField,occupationalJobTitleField;
     TextInputLayout personalNumberOfChildrenView;
 
-    Button submitButton;
+    Button submitButton,cancelButton;
 
     Switch personalMarriedField;
 
     Vibrator vibrator;
 
     private ProgressDialog progressDialog;
+    private FloatingActionButton editfAB;
 
-  @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_data_view);
 
         personalNameField = findViewById(R.id.personalNameField);
-        disableField(personalNameField);
         personalAddressField = findViewById(R.id.personalAddressField);
-        disableField(personalAddressField);
+
         personalDOBField = findViewById(R.id.personalDOBField);
-        disableField(personalDOBField);
         personalIDNumberField = findViewById(R.id.personalIDNumberField);
-        disableField(personalIDNumberField);
         personalEmailField = findViewById(R.id.personalEmailField);
-        disableField(personalEmailField);
         personalMobileField = findViewById(R.id.personalMobileField);
-        disableField(personalMobileField);
         personalHomeField = findViewById(R.id.personalHomeField);
-        disableField(personalHomeField);
         personalMarriedField = findViewById(R.id.personalMarriedField);
-      //  disableField(personalMarriedField);
         personalNumberOfChildren = findViewById(R.id.personalNumberOfChildren);
-        disableField(personalNumberOfChildren);
         personalNumberOfChildrenView = findViewById(R.id.personalNumberOfChildrenView);
-      //  disableField(personalNumberOfChildrenView);
 
         educationalStreamField = findViewById(R.id.educationalStreamField);
-       // disableField(educationalStreamField);
         educationalIndexNumberField = findViewById(R.id.educationalIndexNumberField);
-        disableField(educationalIndexNumberField);
         educationalStartDateField = findViewById(R.id.educationalStartDateField);
-        disableField(educationalStartDateField);
         educationalEndDateField = findViewById(R.id.educationalEndDateField);
-        disableField(educationalEndDateField);
         educationalHigherStudiesField = findViewById(R.id.educationalHigherStudiesField);
-        disableField(educationalHigherStudiesField);
 
         occupationalCompanyNameField = findViewById(R.id.occupationalCompanyNameField);
-        disableField(occupationalCompanyNameField);
         occupationalCompanyAddressField = findViewById(R.id.occupationalCompanyAddressField);
-        disableField(occupationalCompanyAddressField);
+
+
         occupationalJobTitleField = findViewById(R.id.occupationalJobTitleField);
-        //disableField(occupationalJobTitleField);
         occupationalPhoneField = findViewById(R.id.occupationalPhoneField);
-        disableField(occupationalPhoneField);
         occupationalStartDateField = findViewById(R.id.occupationalStartDateField);
+
+        disableField(personalNameField);
+        disableField(personalAddressField);
+        disableField(personalDOBField);
+        disableField(personalIDNumberField);
+        disableField(personalEmailField);
+        disableField(personalMobileField);
+        disableField(personalHomeField);
+        disableField(personalNumberOfChildren);
+        disableField(educationalIndexNumberField);
+        disableField(educationalStartDateField);
+        disableField(educationalEndDateField);
+        disableField(educationalHigherStudiesField);
+        disableField(occupationalCompanyNameField);
+        disableField(occupationalCompanyAddressField);
+        disableField(occupationalPhoneField);
         disableField(occupationalStartDateField);
 
         submitButton = findViewById(R.id.submitButton);
+        cancelButton = findViewById(R.id.cancelButton);
+
+        editfAB = findViewById(R.id.fab);
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -136,15 +143,48 @@ public class UserDataView extends AppCompatActivity {
 
 
       submitButton.setVisibility(View.GONE);
-      submitButton.setEnabled(false);
+      cancelButton.setVisibility(View.GONE);
 
       getDataFromDB();
 
     }
 
+    public void editPage(View view){
+
+        enableField(personalNameField);
+        enableField(personalAddressField);
+        enableField(personalDOBField);
+        enableField(personalIDNumberField);
+        enableField(personalEmailField);
+        enableField(personalMobileField);
+        enableField(personalHomeField);
+        enableField(personalNumberOfChildren);
+        enableField(educationalIndexNumberField);
+        enableField(educationalStartDateField);
+        enableField(educationalEndDateField);
+        enableField(educationalHigherStudiesField);
+        enableField(occupationalCompanyNameField);
+        enableField(occupationalCompanyAddressField);
+        enableField(occupationalPhoneField);
+        enableField(occupationalStartDateField);
+
+        personalMarriedField.setEnabled(true);
+        occupationalJobTitleField.setEnabled(true);
+        educationalStreamField.setEnabled(true);
+
+        editfAB.hide();
+        submitButton.setVisibility(View.VISIBLE);
+        cancelButton.setVisibility(View.VISIBLE);
+
+    }
+
     private void disableField(EditText field) {
         field.setEnabled(false);
-        field.setFocusable(false);
+    }
+
+    private void enableField(EditText field) {
+        field.setEnabled(true);
+        field.setFocusable(true);
     }
 
     private void getDataFromDB() {
@@ -265,11 +305,39 @@ public class UserDataView extends AppCompatActivity {
             return;
         }
 
-        submitUserData();
+        progressDialog.dismiss();
+
+        //add dialog box to show request pending state
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(UserDataView.this);
+        alertDialogBuilder.setMessage("Do you want to update your details ? ");
+        alertDialogBuilder.setPositiveButton("yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        submitUserData();
+                    }
+                });
+
+        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //do nothing
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
+    public void cancelEdit(View view){
+        finish();
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+    }
 
     private void submitUserData() {
+
+        progressDialog.show();
 
         //first getting the values
         SharedPreferences.Editor editor = getSharedPreferences("MY_PREF", MODE_PRIVATE).edit();
@@ -290,23 +358,10 @@ public class UserDataView extends AppCompatActivity {
         ref.child("educationalDetails").setValue(educationalDetail);
         ref.child("occupationalDetails").setValue(occupationalDetail);
 
-        //set this only for first time prevent from updates
-        if(!prefs.getBoolean("isDataSubmitted",false)){
-            ref.child("isUserVerified").setValue(false);
-        }
-
-        editor.putBoolean("isDataSubmitted",true);
-        editor.apply();
-
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
-        database.getReference("UserStatus").child(uId).child("isDataSubmitted").setValue("true");
-
         progressDialog.dismiss();
 
-        FirebaseAuth.getInstance().signOut();
-        Toast.makeText(getApplicationContext(),"Please,log in again..",Toast.LENGTH_SHORT).show();
         finish();
-        startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+        startActivity(new Intent(getApplicationContext(),MainActivity.class));
 
     }
 

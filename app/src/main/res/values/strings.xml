@@ -44,6 +44,8 @@
     <string name="forget_password">Forgot Password?</string>
     <string name="we_just_need_your_registered_email_id_to_sent_n_your_password_reset_instructions">
         We just need your registered Email Id to sent \n your password reset instructions.</string>
+    <string name="cancel">Cancel</string>
+    <string name="update_data">Update Data</string>
 
     <string-array name="search_fields">
         <item>Name</item>
