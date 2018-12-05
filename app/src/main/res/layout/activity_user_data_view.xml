@@ -35,7 +35,6 @@
                 android:text="@string/personal_details"
                 android:textSize="25dp"
                 android:gravity="start"
-                android:layout_gravity="center"
                 android:textAlignment="textStart" />
 
             <!-- Name Label -->
@@ -195,15 +194,6 @@
                 android:textColor="@color/colorPrimaryTextColor"
                 android:layout_marginBottom="8dp">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="@color/colorPrimaryTextColor"
-                    android:hint="@string/married"
-                    android:textColor="@color/colorPrimaryTextColor"
-                    android:drawablePadding="12dp"
-                    android:padding="16dp"/>
-
                 <Switch
                     android:id="@+id/personalMarriedField"
                     android:layout_width="fill_parent"
@@ -258,7 +248,6 @@
                 android:textSize="25dp"
                 android:text="@string/educational_details"
                 android:gravity="start"
-                android:layout_gravity="center"
                 android:textAlignment="textStart" />
 
             <!-- spinner -->              <!-- Stream Label -->
@@ -393,7 +382,6 @@
                 android:padding="16dp"
                 android:text="@string/occupational_details"
                 android:gravity="start"
-                android:layout_gravity="center"
                 android:textAlignment="textStart" />
 
             <!-- Company name Label -->

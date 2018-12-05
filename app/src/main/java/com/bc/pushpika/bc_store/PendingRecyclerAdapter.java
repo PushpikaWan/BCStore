@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -15,9 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alespero.expandablecardview.ExpandableCardView;
 import com.bc.pushpika.bc_store.data_structures.EducationalDetail;
@@ -109,7 +106,7 @@ public class PendingRecyclerAdapter extends RecyclerView.Adapter<PendingRecycler
     }
 
     @Override
-    public void onBindViewHolder(final PendingReyclerViewHolder holder, int position) {
+    public void onBindViewHolder(final PendingReyclerViewHolder holder, final int position) {
 
         //set relevant holder data
         if(position >= itemList.size()) return;
@@ -136,11 +133,17 @@ public class PendingRecyclerAdapter extends RecyclerView.Adapter<PendingRecycler
                                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                                         DatabaseReference myRef1 = database.getReference("UserData");
                                         DatabaseReference myRef2 = database.getReference("UserStatus");
+                                        DatabaseReference myRef3 = database.getReference("UserFirstTimeVerifiedData");
 
                                         DatabaseReference ref1 = myRef1.child(requesterId).child("isUserVerified");
                                         DatabaseReference ref2 = myRef2.child(requesterId).child("isUserVerified");
                                         ref1.setValue("true");
                                         ref2.setValue("true");
+
+
+                                        myRef3.child(requesterId).child("personalDetails").setValue(itemList.get(position).getPersonalDetail());
+                                        myRef3.child(requesterId).child("educationalDetails").setValue(itemList.get(position).getEducationalDetail());
+                                        myRef3.child(requesterId).child("occupationalDetails").setValue(itemList.get(position).getOccupationalDetail());
                                     }
                                 });
 
